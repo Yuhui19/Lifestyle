@@ -11,13 +11,33 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/im_edit_user_profile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/user_profile"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_edit_user_profile"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            app:cardCornerRadius="250dp"
+            android:layout_marginRight="32dp"
+            app:cardBackgroundColor="@android:color/darker_gray"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="250dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_user_profile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/profile"
+                    android:scaleType="centerCrop"
+                    android:background="#FEF9E7"
+                    app:tint="@android:color/darker_gray"/>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/button"
@@ -31,10 +51,10 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/im_edit_user_profile"
+            app:layout_constraintBottom_toTopOf="@id/cv_edit_user_profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/im_edit_user_profile"
-            app:layout_constraintTop_toBottomOf="@id/im_edit_user_profile"
+            app:layout_constraintLeft_toRightOf="@id/cv_edit_user_profile"
+            app:layout_constraintTop_toBottomOf="@id/cv_edit_user_profile"
             app:layout_constraintVertical_bias="0.505" />
 
         <View
@@ -43,8 +63,8 @@
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="@+id/im_edit_user_profile"
-            app:layout_constraintTop_toBottomOf="@id/im_edit_user_profile" />
+            app:layout_constraintStart_toStartOf="@+id/cv_edit_user_profile"
+            app:layout_constraintTop_toBottomOf="@id/cv_edit_user_profile" />
 
         <TextView
             android:id="@+id/tv_edit_name_label"
