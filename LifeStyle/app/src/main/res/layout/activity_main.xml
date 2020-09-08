@@ -23,9 +23,10 @@
             android:id="@+id/tv_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-------"
+            android:text="------"
             android:textColor="@android:color/black"
-            android:textSize="48sp" />
+            android:textSize="48sp"
+            android:fontFamily="monospace"/>
 
         <TextView
             android:id="@+id/tv_location_label"
@@ -34,7 +35,8 @@
             android:layout_marginTop="16dp"
             android:text="Location"
             android:textColor="@android:color/darker_gray"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:fontFamily="sans-serif"/>
 
         <TextView
             android:id="@+id/tv_location"
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="-------"
             android:textColor="@android:color/black"
-            android:textSize="28sp" />
+            android:textSize="28sp"/>
 
         <TextView
             android:id="@+id/tv_gender_label"
