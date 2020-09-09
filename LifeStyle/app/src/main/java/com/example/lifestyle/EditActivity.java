@@ -156,6 +156,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             //Get the bitmap
             Bundle extras = data.getExtras();
             mThumbnailImage = (Bitmap) extras.get("data");
+            System.out.println("get image!!!!!");
             mIvProfileImage.setImageBitmap(mThumbnailImage);
 
             //Open a file and write to it
