@@ -1,178 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout_user_info"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/cv_user_profile">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-
-        <TextView
-            android:id="@+id/tv_username"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="------"
-            android:textColor="@android:color/black"
-            android:textSize="48sp"
-            android:fontFamily="monospace"/>
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/tv_location_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Location"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="24sp"
-            android:fontFamily="sans-serif"/>
+            <LinearLayout
+                android:id="@+id/linearLayout_user_info"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="32dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/cv_user_profile"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-------"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"/>
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="------"
+                    android:textColor="@android:color/black"
+                    android:textSize="48sp" />
 
-        <TextView
-            android:id="@+id/tv_gender_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Gender"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_location_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Location"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-------"
-            android:textColor="@android:color/black"
-            android:textSize="28sp" />
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-------"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
 
-        <TextView
-            android:id="@+id/tv_age_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Age"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_gender_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Gender"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-------"
-            android:textColor="@android:color/black"
-            android:textSize="28sp" />
+                <TextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-------"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
 
-        <TextView
-            android:id="@+id/tv_height_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Height"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_age_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Age"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_height"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-------"
-            android:textColor="@android:color/black"
-            android:textSize="28sp" />
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-------"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
 
-        <TextView
-            android:id="@+id/tv_weight_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Weight"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_height_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Height (ft)"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tv_weight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="-------"
-            android:textColor="@android:color/black"
-            android:textSize="28sp" />
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-------"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_weight_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Weight (lb)"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="24sp" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_user_profile"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        app:cardCornerRadius="250dp"
-        android:layout_marginRight="32dp"
-        app:cardBackgroundColor="@android:color/darker_gray"
-        app:layout_constraintTop_toTopOf="@id/linearLayout_user_info"
-        app:layout_constraintRight_toRightOf="parent">
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-------"
+                    android:textColor="@android:color/black"
+                    android:textSize="28sp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:cardCornerRadius="250dp"
-            android:layout_gravity="center">
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_user_profile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/profile"
-                android:background="#FEF9E7"
-                app:tint="@android:color/darker_gray"
-                android:scaleType="centerCrop"/>
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_user_profile"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_marginRight="32dp"
+                app:cardBackgroundColor="@android:color/darker_gray"
+                app:cardCornerRadius="250dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/linearLayout_user_info">
 
-    </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="250dp">
 
-    <Button
-        android:id="@+id/button_edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toRightOf="@id/cv_user_profile"
-        app:layout_constraintRight_toLeftOf="@id/cv_user_profile"
-        app:layout_constraintTop_toBottomOf="@+id/cv_user_profile"
-        android:background="@drawable/button_border"
-        android:padding="8dp"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textColor="@color/colorAccent"/>
+                    <ImageView
+                        android:id="@+id/iv_user_profile"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:background="#FEF9E7"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile"
+                        app:tint="@android:color/darker_gray" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/button_edit_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_border"
+                android:padding="8dp"
+                android:text="Edit Profile"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toRightOf="@id/cv_user_profile"
+                app:layout_constraintRight_toLeftOf="@id/cv_user_profile"
+                app:layout_constraintTop_toBottomOf="@+id/cv_user_profile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <View
         android:layout_width="match_parent"
-        android:background="@android:color/darker_gray"
         android:layout_height="1dp"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout_buttons"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:id="@+id/linearLayout_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:padding="20dp">
 
         <ImageButton
@@ -180,54 +188,50 @@
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
-            android:src="@drawable/map"
-            android:tint="@color/colorAccent"
             android:background="@android:color/white"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/map"
+            android:tint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/ib_weather"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
-            android:src="@drawable/weather"
-            android:tint="@color/colorAccent"
             android:background="@android:color/white"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/weather"
+            android:tint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/ib_bmi"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
-            android:src="@drawable/bmi"
-            android:tint="@color/colorAccent"
             android:background="@android:color/white"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/bmi"
+            android:tint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/ib_goal"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
-            android:src="@drawable/goal"
-            android:tint="@color/colorAccent"
             android:background="@android:color/white"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/goal"
+            android:tint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/ib_profile"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_weight="1"
-            android:src="@drawable/profile"
-            android:tint="@color/colorAccent"
             android:background="@android:color/white"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/profile"
+            android:tint="@color/colorAccent" />
 
     </LinearLayout>
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
