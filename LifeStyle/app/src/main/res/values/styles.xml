@@ -9,4 +9,43 @@
         <item name="android:actionMenuTextColor">@android:color/black</item>
     </style>
 
+    <style name="main_activity_labels">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/secondaryText</item>
+    </style>
+
+    <style name="main_activity_values">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">-------</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/primaryText</item>
+    </style>
+
+    <style name="main_activity_name" parent="main_activity_values">
+        <item name="android:textSize">44sp</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
+
+    <style name="main_activity_bottom_buttons">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">@color/colorAccent</item>
+    </style>
+
+    <style name="edit_activity_labels">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/primaryText</item>
+    </style>
+
 </resources>

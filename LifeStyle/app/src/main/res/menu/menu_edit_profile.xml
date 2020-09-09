@@ -9,13 +9,13 @@
     <item
         android:id="@+id/action_save"
         android:orderInCategory="2"
-        android:title="save"
+        android:title="@string/action_save"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_cancel"
         android:orderInCategory="1"
-        android:title="cancel"
+        android:title="@string/action_cancel"
         app:showAsAction="always"
         />
 </menu>

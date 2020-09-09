@@ -17,7 +17,7 @@
             android:layout_height="125dp"
             app:cardCornerRadius="250dp"
             android:layout_marginRight="32dp"
-            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardBackgroundColor="@color/divider"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -31,10 +31,10 @@
                     android:id="@+id/iv_user_profile"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/profile"
+                    android:background="@color/colorPrimaryLight"
                     android:scaleType="centerCrop"
-                    android:background="#FEF9E7"
-                    app:tint="@android:color/darker_gray"/>
+                    android:src="@drawable/profile"
+                    app:tint="@color/divider" />
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
@@ -47,7 +47,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/button_border"
             android:padding="8dp"
-            android:text="Change Profile Photo"
+            android:text="@string/edit_profile_photo"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
@@ -62,92 +62,65 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"
+            android:background="#BDBDBD"
             app:layout_constraintStart_toStartOf="@+id/cv_edit_user_profile"
             app:layout_constraintTop_toBottomOf="@id/cv_edit_user_profile" />
 
         <TextView
             android:id="@+id/tv_edit_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/edit_activity_labels"
             android:layout_marginTop="16dp"
-            android:text="Name"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/name_label"
             app:layout_constraintLeft_toLeftOf="@id/view_divider"
             app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
         <TextView
             android:id="@+id/tv_edit_gender_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Gender"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/gender_label"
             app:layout_constraintLeft_toLeftOf="@id/tv_edit_name_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_edit_name_label" />
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_name_label"
+            style="@style/edit_activity_labels"/>
 
         <TextView
             android:id="@+id/tv_edit_age_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Age"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/age_label"
             app:layout_constraintLeft_toLeftOf="@id/tv_edit_gender_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_edit_gender_label" />
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_gender_label"
+            style="@style/edit_activity_labels"/>
 
         <TextView
             android:id="@+id/tv_edit_height_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Height"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/height_label"
             app:layout_constraintLeft_toLeftOf="@id/tv_edit_age_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_edit_age_label" />
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_age_label"
+            style="@style/edit_activity_labels"/>
 
         <TextView
             android:id="@+id/tv_edit_weight_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Weight"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/weight_label"
             app:layout_constraintLeft_toLeftOf="@id/tv_edit_height_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_edit_height_label" />
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_height_label"
+            style="@style/edit_activity_labels"/>
 
         <TextView
             android:id="@+id/tv_edit_country_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Country"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/country_label"
             app:layout_constraintLeft_toLeftOf="@id/tv_edit_weight_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_edit_weight_label" />
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_weight_label"
+            style="@style/edit_activity_labels"/>
 
         <TextView
             android:id="@+id/tv_edit_city_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="City"
-            android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:text="@string/city_label"
             app:layout_constraintLeft_toLeftOf="@id/tv_edit_country_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_edit_country_label" />
+            app:layout_constraintTop_toBottomOf="@id/tv_edit_country_label"
+            style="@style/edit_activity_labels"/>
 
         <EditText
             android:id="@+id/et_edit_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="48dp"
+            android:layout_marginLeft="56dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toRightOf="@id/tv_edit_name_label"
             app:layout_constraintTop_toTopOf="@id/tv_edit_name_label"
