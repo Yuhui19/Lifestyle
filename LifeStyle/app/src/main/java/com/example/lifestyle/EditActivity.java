@@ -199,6 +199,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             return true;
         }
+        System.out.println("cannot use external storeage");
         return false;
     }
 }
