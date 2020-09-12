@@ -62,6 +62,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         if (savedInstanceState != null) {
             mEtName.setText(savedInstanceState.getString("ET_NAME"));
             mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
+            mEtAge.setText(savedInstanceState.getString("ET_AGE"));
+            mEtHeight.setText(savedInstanceState.getString("ET_HEIGHT"));
+            mEtWeight.setText(savedInstanceState.getString("ET_WEIGHT"));
+            mEtCountry.setText(savedInstanceState.getString("ET_COUNTRY"));
+            mEtCity.setText(savedInstanceState.getString("ET_CITY"));
         }
 
         mButtonCamera.setOnClickListener(this);
@@ -80,25 +85,78 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             // Respond to a click on the "save" menu option
             case R.id.action_save:
                 // save the data and send back to MainActivity
-                String name = mEtName.getText().toString();
-                String gender = mEtGender.getText().toString();
-                String age = mEtAge.getText().toString();
-                String height = mEtHeight.getText().toString();
-                String weight = mEtWeight.getText().toString();
-                String country = mEtCountry.getText().toString();
-                String city = mEtCity.getText().toString();
+                Intent messageIntent = new Intent(this, MainActivity.class);
 
+                //name input check
+                String name = mEtName.getText().toString();
+                if (name.matches("")){
+                    Toast.makeText(this,"Enter name",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String[] splitStrings = name.split("\\s+");
+                    if(splitStrings.length != 2){
+                        Toast.makeText(this,"Enter valid first and last name",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        messageIntent.putExtra("ET_NAME", name);
+                    }
+                }
+
+                //gender input
+                String gender = mEtGender.getText().toString();
+                messageIntent.putExtra("ET_GENDER", gender);
+
+                //age input check
+                String age = mEtAge.getText().toString();
+                if (age.matches("")) {
+                    Toast.makeText(this,"Enter age",Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        Integer.parseInt(age);
+                        messageIntent.putExtra("ET_AGE", age);
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Enter a valid age.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                //height input check
+                String height = mEtHeight.getText().toString();
+                if (height.matches("")) {
+                    Toast.makeText(this,"Enter height",Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        Double.parseDouble(height);
+                        messageIntent.putExtra("ET_HEIGHT", height);
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Enter a valid height.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                //weight input check
+                String weight = mEtWeight.getText().toString();
+                if (weight.matches("")) {
+                    Toast.makeText(this,"Enter weight",Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        Double.parseDouble(weight);
+                        messageIntent.putExtra("ET_WEIGHT", weight);
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Enter a valid weight.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                //country input
+                String country = mEtCountry.getText().toString();
+                messageIntent.putExtra("ET_COUNTRY", country);
+
+                //city input
+                String city = mEtCity.getText().toString();
+                messageIntent.putExtra("ET_CITY", city);
+
+                //image input
+                messageIntent.putExtra("IMAGE_PATH", imagePath);
 
                 // back to main activity
-                Intent messageIntent = new Intent(this, MainActivity.class);
-                messageIntent.putExtra("ET_NAME", name);
-                messageIntent.putExtra("ET_GENDER", gender);
-                messageIntent.putExtra("ET_AGE", age);
-                messageIntent.putExtra("ET_HEIGHT", height);
-                messageIntent.putExtra("ET_WEIGHT", weight);
-                messageIntent.putExtra("ET_COUNTRY", country);
-                messageIntent.putExtra("ET_CITY", city);
-                messageIntent.putExtra("IMAGE_PATH", imagePath);
                 this.startActivity(messageIntent);
 
                 return true;
@@ -117,10 +175,20 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         // Save the user's current state
         mEtName = (EditText) findViewById(R.id.et_edit_name);
         mEtGender = (EditText) findViewById(R.id.et_edit_gender);
+        mEtAge = (EditText) findViewById(R.id.et_edit_age);
+        mEtHeight = (EditText) findViewById(R.id.et_edit_height);
+        mEtWeight = (EditText) findViewById(R.id.et_edit_weight);
+        mEtCountry = (EditText) findViewById(R.id.et_edit_country);
+        mEtCity = (EditText) findViewById(R.id.et_edit_city);
 
         // savedInstanceState.putInt(KEY, VALUE);
         savedInstanceState.putString("ET_NAME", mEtName.getText().toString());
         savedInstanceState.putString("ET_GENDER", mEtGender.getText().toString());
+        savedInstanceState.putString("ET_AGE", mEtAge.getText().toString());
+        savedInstanceState.putString("ET_HEIGHT", mEtHeight.getText().toString());
+        savedInstanceState.putString("ET_WEIGHT", mEtWeight.getText().toString());
+        savedInstanceState.putString("ET_COUNTRY", mEtCountry.getText().toString());
+        savedInstanceState.putString("ET_CITY", mEtCity.getText().toString());
 
         // Always call the superclass so it can save any view hierarchy
         super.onSaveInstanceState(savedInstanceState);
@@ -130,9 +198,19 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         mEtName = (EditText) findViewById(R.id.et_edit_name);
         mEtGender = (EditText) findViewById(R.id.et_edit_gender);
+        mEtAge = (EditText) findViewById(R.id.et_edit_age);
+        mEtHeight = (EditText) findViewById(R.id.et_edit_height);
+        mEtWeight = (EditText) findViewById(R.id.et_edit_weight);
+        mEtCountry = (EditText) findViewById(R.id.et_edit_country);
+        mEtCity = (EditText) findViewById(R.id.et_edit_city);
 
         mEtName.setText(savedInstanceState.getString("ET_NAME"));
         mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
+        mEtAge.setText(savedInstanceState.getString("ET_AGE"));
+        mEtHeight.setText(savedInstanceState.getString("ET_HEIGHT"));
+        mEtWeight.setText(savedInstanceState.getString("ET_WEIGHT"));
+        mEtCountry.setText(savedInstanceState.getString("ET_COUNTRY"));
+        mEtCity.setText(savedInstanceState.getString("ET_CITY"));
     }
 
     @Override
@@ -199,7 +277,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             return true;
         }
-        System.out.println("cannot use external storeage");
+        Toast.makeText(this,"Cannot access external storage.",Toast.LENGTH_SHORT).show();
         return false;
     }
 }
