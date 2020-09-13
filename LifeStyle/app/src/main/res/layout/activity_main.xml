@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical">
 
     <ScrollView
@@ -20,8 +21,8 @@
                 android:id="@+id/linearLayout_user_info"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="24dp"
                 android:layout_marginRight="32dp"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -84,7 +85,7 @@
                 android:id="@+id/cv_user_profile"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginRight="8dp"
                 app:cardBackgroundColor="@color/divider"
                 app:cardCornerRadius="250dp"
                 app:layout_constraintRight_toRightOf="parent"
@@ -100,29 +101,22 @@
                         android:id="@+id/iv_user_profile"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:background="@color/colorPrimaryLight"
+                        android:background="@color/icon"
                         android:scaleType="centerCrop"
                         android:src="@drawable/profile"
-                        app:tint="@color/divider" />
+                        app:tint="@color/colorPrimaryLight" />
                 </androidx.cardview.widget.CardView>
 
             </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/button_edit_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/button_border"
-                android:padding="8dp"
-                android:text="@string/edit_profile"
-                android:textAllCaps="false"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
                 app:layout_constraintLeft_toRightOf="@id/cv_user_profile"
                 app:layout_constraintRight_toLeftOf="@id/cv_user_profile"
-                app:layout_constraintTop_toBottomOf="@+id/cv_user_profile" />
+                app:layout_constraintTop_toBottomOf="@+id/cv_user_profile"
+                android:layout_marginTop="16dp"
+                android:text="@string/edit_profile"
+                style="@style/edit_buttons" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -130,14 +124,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
         android:background="#BDBDBD" />
 
     <LinearLayout
         android:id="@+id/linearLayout_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ib_map"
@@ -159,10 +153,10 @@
             android:src="@drawable/goal"
             style="@style/main_activity_bottom_buttons"/>
 
-        <ImageButton
-            android:id="@+id/ib_profile"
-            android:src="@drawable/profile"
-            style="@style/main_activity_bottom_buttons"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/ib_profile"-->
+<!--            android:src="@drawable/profile"-->
+<!--            style="@style/main_activity_bottom_buttons"/>-->
 
     </LinearLayout>
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -26,14 +27,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView mTvWeight;
     ImageView mIvThumbnail;
     ImageButton mIbMap;
+    ImageButton mIbWeather;
+    ImageButton mIbBMI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        Intent intent = new Intent(MainActivity.this, BMIActivity.class);
-//        startActivity(intent);
 
         //Get the intent that created this activity.
         Intent receivedIntent = getIntent();
@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvName.setText(mNameReceived);
         }
 
-        String mGenderReceived = receivedIntent.getStringExtra("ET_GENDER");
-        if (mGenderReceived != null && !mGenderReceived.matches("")) {
-            mTvGender = (TextView) findViewById(R.id.tv_gender);
-            mTvGender.setText(mGenderReceived);
-        }
+//        String mGenderReceived = receivedIntent.getStringExtra("ET_GENDER");
+//        if (mGenderReceived != null && !mGenderReceived.matches("")) {
+//            mTvGender = (TextView) findViewById(R.id.tv_gender);
+//            mTvGender.setText(mGenderReceived);
+//        }
 
         String mAgeReceived = receivedIntent.getStringExtra("ET_AGE");
         if (mAgeReceived != null && !mAgeReceived.matches("")) {
@@ -102,13 +102,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mbuttonEdit.setOnClickListener(this);
         mIbMap = (ImageButton) findViewById(R.id.ib_map);
         mIbMap.setOnClickListener(this);
+        mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
+        mIbWeather.setOnClickListener(this);
+        mIbBMI = (ImageButton) findViewById(R.id.ib_bmi);
+        mIbBMI.setOnClickListener(this);
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current state
         mTvName = (TextView) findViewById(R.id.tv_username);
-        mTvGender = (TextView) findViewById(R.id.tv_gender);
+//        mTvGender = (TextView) findViewById(R.id.tv_gender);
         mTvAge = (TextView) findViewById(R.id.tv_age);
         mTvHeight = (TextView) findViewById(R.id.tv_height);
         mTvWeight = (TextView) findViewById(R.id.tv_weight);
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // savedInstanceState.putInt(KEY, VALUE);
         savedInstanceState.putString("TV_NAME", mTvName.getText().toString());
-        savedInstanceState.putString("TV_GENDER", mTvGender.getText().toString());
+//        savedInstanceState.putString("TV_GENDER", mTvGender.getText().toString());
         savedInstanceState.putString("TV_AGE", mTvAge.getText().toString());
         savedInstanceState.putString("TV_HEIGHT", mTvHeight.getText().toString());
         savedInstanceState.putString("TV_WEIGHT", mTvWeight.getText().toString());
@@ -129,14 +133,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         mTvName = (TextView) findViewById(R.id.tv_username);
-        mTvGender = (TextView) findViewById(R.id.tv_gender);
+//        mTvGender = (TextView) findViewById(R.id.tv_gender);
         mTvAge = (TextView) findViewById(R.id.tv_age);
         mTvHeight = (TextView) findViewById(R.id.tv_height);
         mTvWeight = (TextView) findViewById(R.id.tv_weight);
         mTvLocation = (TextView) findViewById(R.id.tv_location);
 
         mTvName.setText(savedInstanceState.getString("TV_NAME"));
-        mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
+//        mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
         mTvAge.setText(savedInstanceState.getString("TV_AGE"));
         mTvHeight.setText(savedInstanceState.getString("TV_HEIGHT"));
         mTvWeight.setText(savedInstanceState.getString("TV_WEIGHT"));
@@ -157,8 +161,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 location(mIbMap);
                 break;
             }
+            case R.id.ib_weather: {
+                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
+                break;
+            }
             case R.id.ib_bmi: {
-
+                Intent intent = new Intent(this, BMIActivity.class);
+                this.startActivity(intent);
                 break;
             }
         }

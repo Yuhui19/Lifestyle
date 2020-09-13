@@ -9,12 +9,16 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +30,7 @@ import java.util.Date;
 public class EditActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText mEtName;
-    private EditText mEtGender;
+//    private EditText mEtGender;
     private EditText mEtAge;
     private EditText mEtHeight;
     private EditText mEtWeight;
@@ -34,6 +38,13 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mEtCity;
     private Button mButtonCamera;
     private ImageView mIvProfileImage;
+
+    private Spinner mSpinnerGender;
+    private String mGender;
+    private String GENDER_MALE = "Male";
+    private String GENDER_FEMALE = "Female";
+    private String GENDER_OTHERS = "Others";
+    private String GENDER_UNKNOWN = "Unknown";
 
     //Define a request code for the camera
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -50,7 +61,8 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         setTitle("Edit Profile");
 
         mEtName = (EditText) findViewById(R.id.et_edit_name);
-        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
+//        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
+        mSpinnerGender = (Spinner) findViewById(R.id.spin_edit_gender);
         mEtAge = (EditText) findViewById(R.id.et_edit_age);
         mEtHeight = (EditText) findViewById(R.id.et_edit_height);
         mEtWeight = (EditText) findViewById(R.id.et_edit_weight);
@@ -61,7 +73,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
         if (savedInstanceState != null) {
             mEtName.setText(savedInstanceState.getString("ET_NAME"));
-            mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
+//            mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
             mEtAge.setText(savedInstanceState.getString("ET_AGE"));
             mEtHeight.setText(savedInstanceState.getString("ET_HEIGHT"));
             mEtWeight.setText(savedInstanceState.getString("ET_WEIGHT"));
@@ -70,6 +82,45 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mButtonCamera.setOnClickListener(this);
+        setupSpinner();
+    }
+
+    private void setupSpinner() {
+        // Create adapter for spinner. The list options are from the String array it will use
+        // the spinner will use the default layout
+        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.array_gender_options, android.R.layout.simple_spinner_item);
+
+        // Specify dropdown layout style - simple list view with 1 item per line
+        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        // Apply the adapter to the spinner
+        mSpinnerGender.setAdapter(genderSpinnerAdapter);
+
+        // Set the integer mSelected to the constant values
+        mSpinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                if (!TextUtils.isEmpty(selection)) {
+                    if (selection.equals(getString(R.string.gender_male))) {
+                        mGender = GENDER_MALE;
+                    } else if (selection.equals(getString(R.string.gender_female))) {
+                        mGender = GENDER_FEMALE;
+                    } else if (selection.equals(getString(R.string.gender_others))){
+                        mGender = GENDER_OTHERS;
+                    } else {
+                        mGender = GENDER_UNKNOWN;
+                    }
+                }
+            }
+
+            // Because AdapterView is an abstract class, onNothingSelected must be defined
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mGender = GENDER_UNKNOWN;
+            }
+        });
     }
 
     // this method will inflate menu items
@@ -102,9 +153,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
 
-                //gender input
-                String gender = mEtGender.getText().toString();
-                messageIntent.putExtra("ET_GENDER", gender);
+//                //gender input
+//                String gender = mEtGender.getText().toString();
+//                messageIntent.putExtra("ET_GENDER", gender);
 
                 //age input check
                 String age = mEtAge.getText().toString();
@@ -174,7 +225,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current state
         mEtName = (EditText) findViewById(R.id.et_edit_name);
-        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
+//        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
         mEtAge = (EditText) findViewById(R.id.et_edit_age);
         mEtHeight = (EditText) findViewById(R.id.et_edit_height);
         mEtWeight = (EditText) findViewById(R.id.et_edit_weight);
@@ -183,7 +234,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
         // savedInstanceState.putInt(KEY, VALUE);
         savedInstanceState.putString("ET_NAME", mEtName.getText().toString());
-        savedInstanceState.putString("ET_GENDER", mEtGender.getText().toString());
+//        savedInstanceState.putString("ET_GENDER", mEtGender.getText().toString());
         savedInstanceState.putString("ET_AGE", mEtAge.getText().toString());
         savedInstanceState.putString("ET_HEIGHT", mEtHeight.getText().toString());
         savedInstanceState.putString("ET_WEIGHT", mEtWeight.getText().toString());
@@ -197,7 +248,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         mEtName = (EditText) findViewById(R.id.et_edit_name);
-        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
+//        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
         mEtAge = (EditText) findViewById(R.id.et_edit_age);
         mEtHeight = (EditText) findViewById(R.id.et_edit_height);
         mEtWeight = (EditText) findViewById(R.id.et_edit_weight);
@@ -205,7 +256,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         mEtCity = (EditText) findViewById(R.id.et_edit_city);
 
         mEtName.setText(savedInstanceState.getString("ET_NAME"));
-        mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
+//        mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
         mEtAge.setText(savedInstanceState.getString("ET_AGE"));
         mEtHeight.setText(savedInstanceState.getString("ET_HEIGHT"));
         mEtWeight.setText(savedInstanceState.getString("ET_WEIGHT"));
