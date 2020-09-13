@@ -15,4 +15,12 @@
 
     <string name="action_save">save</string>
     <string name="action_cancel">cancel</string>
+
+    <string name="BMI_label">MBI</string>
+    <string name="BMI_value">22.5</string>
+
+    <string name="BMI_ranges_label">BIM ranges</string>
+    <string name="BMI_ranges">Below 18.5 – you\'re in the underweight range\nBetween 18.5 and 24.9 – you\'re in the healthy weight range\nBetween 25 and 29.9 – you\'re in the overweight range\nBetween 30 and 39.9 – you\'re in the obese range </string>
+    <string name="title"></string>
+
 </resources>

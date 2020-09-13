@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        Intent intent = new Intent(MainActivity.this, BMIActivity.class);
+//        startActivity(intent);
+
         //Get the intent that created this activity.
         Intent receivedIntent = getIntent();
 
@@ -154,6 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 location(mIbMap);
                 break;
             }
+            case R.id.ib_bmi: {
+
+                break;
+            }
         }
     }
 
@@ -162,5 +169,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
-
 }
