@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton mIbMap;
     ImageButton mIbWeather;
     ImageButton mIbBMI;
+    ImageButton mIbGoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIbWeather.setOnClickListener(this);
         mIbBMI = (ImageButton) findViewById(R.id.ib_bmi);
         mIbBMI.setOnClickListener(this);
+        mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
+        mIbGoal.setOnClickListener(this);
     }
 
     @Override
@@ -174,6 +177,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, BMIActivity.class);
                 intent.putExtra("WEIGHT", mTvWeight.getText().toString());
                 intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+                this.startActivity(intent);
+                break;
+            }
+            case R.id.ib_goal: {
+                Intent intent = new Intent(this, GoalActivity.class);
+                if (mTvWeight != null && mTvHeight!= null) {
+                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+                }
                 this.startActivity(intent);
                 break;
             }
