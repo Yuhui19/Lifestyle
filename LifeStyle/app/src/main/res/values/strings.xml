@@ -29,7 +29,7 @@
     <string name="gender_unknown">Unknown</string>
 
     <string name="weight_question">What is your weight (lbs)?</string>
-    <string name="height_question">What is your height (feet)?</string>
+    <string name="height_question">What is your height (ft)?</string>
     <string name="status_question">Are you recently active or sedentary?</string>
     <string name="status_active">Active</string>
     <string name="status_sedentary">Sedentary</string>

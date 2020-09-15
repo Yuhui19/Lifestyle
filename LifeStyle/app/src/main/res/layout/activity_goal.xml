@@ -48,23 +48,21 @@
             />
 
         <RadioGroup
-            android:id="@+id/radio_group"
+            android:id="@+id/radio_group_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/status_active"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/status_active"
                 style="@style/goal_activity_values"/>
 
             <RadioButton
                 android:id="@+id/status_sedentary"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/status_sedentary"
                 style="@style/goal_activity_values"/>
@@ -73,8 +71,43 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Would you like to lose, gain, or maintain your weight?"
+            style="@style/goal_activity_labels" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_goal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/goal_lose_weight"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="lose"
+                style="@style/goal_activity_values"/>
+
+            <RadioButton
+                android:id="@+id/goal_gain_weight"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="gain"
+                style="@style/goal_activity_values"/>
+
+            <RadioButton
+                android:id="@+id/goal_maintain_weight"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="maintain"
+                style="@style/goal_activity_values"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/goal_weight_question"
             style="@style/goal_activity_labels" />
+
 
         <EditText
             android:id="@+id/et_input_goal_height"
