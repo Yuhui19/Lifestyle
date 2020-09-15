@@ -2,6 +2,8 @@ package com.example.lifestyle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -162,11 +164,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.ib_weather: {
-                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
+                weather();
                 break;
             }
             case R.id.ib_bmi: {
+                mTvHeight = (TextView) findViewById(R.id.tv_height);
+                mTvWeight = (TextView) findViewById(R.id.tv_weight);
                 Intent intent = new Intent(this, BMIActivity.class);
+                intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                intent.putExtra("HEIGHT", mTvHeight.getText().toString());
                 this.startActivity(intent);
                 break;
             }
@@ -177,5 +184,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Uri uri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("hikes"));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
+    }
+
+    public void weather() {
+        ComponentName cn = new ComponentName("com.google.android.wearable.app", "com.google.android.clockwork.home.search.apps.weather.WeatherActivity");
+        try {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            intent.setComponent(cn);
+            startActivity(intent);
+        } catch(ActivityNotFoundException e){
+            Toast.makeText(getApplicationContext(), "activity not found", Toast.LENGTH_LONG).show();
+        }
     }
 }
