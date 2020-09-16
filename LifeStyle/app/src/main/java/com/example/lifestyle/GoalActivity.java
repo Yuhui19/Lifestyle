@@ -164,8 +164,11 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
                     mSuggestedCalories.setText(realSuggestion);
                 }
 
-
-
+                if (goalWeightToLoseOrGain > 2) {
+                    defaultCaution = "You may get overzealous. Gaining or losing more than 2 lbs a week may not be good to your health";
+                }
+                mWarningMessage.setText(defaultCaution);
+                
                 // give users cautions if their suggested daily input calories are too low
                 if ((mGenderReceived.equals("Male") && dailyInputCalories < 1200) ||
                         (mGenderReceived.equals("Female") && dailyInputCalories < 1000)) {
