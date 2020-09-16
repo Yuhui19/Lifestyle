@@ -110,7 +110,7 @@
 
 
         <EditText
-            android:id="@+id/et_input_goal_height"
+            android:id="@+id/et_input_goal_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/goal_activity_values"/>

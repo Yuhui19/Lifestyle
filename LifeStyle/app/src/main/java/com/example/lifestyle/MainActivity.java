@@ -20,18 +20,21 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button mbuttonEdit;
-    TextView mTvName;
-    TextView mTvLocation;
-    TextView mTvGender;
-    TextView mTvAge;
-    TextView mTvHeight;
-    TextView mTvWeight;
-    ImageView mIvThumbnail;
-    ImageButton mIbMap;
-    ImageButton mIbWeather;
-    ImageButton mIbBMI;
-    ImageButton mIbGoal;
+    private Button mbuttonEdit;
+    private TextView mTvName;
+    private TextView mTvLocation;
+    private TextView mTvGender;
+    private TextView mTvAge;
+    private TextView mTvHeight;
+    private TextView mTvWeight;
+    private ImageView mIvThumbnail;
+    private ImageButton mIbMap;
+    private ImageButton mIbWeather;
+    private ImageButton mIbBMI;
+    private ImageButton mIbGoal;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,63 +45,141 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent receivedIntent = getIntent();
 
         //Get the string data and change the profile textView if data is not null
-        String mNameReceived = receivedIntent.getStringExtra("ET_NAME");
-        if (mNameReceived != null && !mNameReceived.matches("")) {
-            mTvName = (TextView) findViewById(R.id.tv_username);
-            mTvName.setText(mNameReceived);
+        String mEditReceived = receivedIntent.getStringExtra("EDIT");
+        if (mEditReceived != null && mEditReceived.equals("true")) {
+            String mNameReceived = receivedIntent.getStringExtra("ET_NAME");
+            if (mNameReceived != null && !mNameReceived.matches("")) {
+                mTvName = (TextView) findViewById(R.id.tv_username);
+                mTvName.setText(mNameReceived);
+            }
+
+            String mGenderReceived = receivedIntent.getStringExtra("ET_GENDER");
+            if (mGenderReceived != null && !mGenderReceived.matches("")) {
+                mTvGender = (TextView) findViewById(R.id.tv_gender);
+                mTvGender.setText(mGenderReceived);
+            }
+
+            String mAgeReceived = receivedIntent.getStringExtra("ET_AGE");
+            if (mAgeReceived != null && !mAgeReceived.matches("")) {
+                mTvAge = (TextView) findViewById(R.id.tv_age);
+                mTvAge.setText(mAgeReceived);
+            }
+
+            String mHeightReceived = receivedIntent.getStringExtra("ET_HEIGHT");
+            if (mHeightReceived != null && !mHeightReceived.matches("")) {
+                mTvHeight = (TextView) findViewById(R.id.tv_height);
+                mTvHeight.setText(mHeightReceived);
+            }
+
+            String mWeightReceived = receivedIntent.getStringExtra("ET_WEIGHT");
+            if (mWeightReceived != null && !mWeightReceived.matches("")) {
+                mTvWeight = (TextView) findViewById(R.id.tv_weight);
+                mTvWeight.setText(mWeightReceived);
+            }
+
+            String mCountryReceived = receivedIntent.getStringExtra("ET_COUNTRY");
+            String mCityReceived = receivedIntent.getStringExtra("ET_CITY");
+            if ((mCountryReceived != null && !mCountryReceived.matches("")) ||
+                    (mCityReceived != null && !mCityReceived.matches(""))) {
+                String location = "";
+                if (mCountryReceived != null && !mCountryReceived.matches("")) {
+                    location += mCountryReceived;
+                }
+                if ((mCountryReceived != null && !mCountryReceived.matches("")) &&
+                        (mCityReceived != null && !mCityReceived.matches(""))) {
+                    location += ",\n";
+                }
+                if (mCityReceived != null && !mCityReceived.matches("")) {
+                    location += mCityReceived;
+                }
+                mTvLocation = (TextView) findViewById(R.id.tv_location);
+                mTvLocation.setText(location);
+            }
+
+
+            String mImagePathReceived = receivedIntent.getStringExtra("IMAGE_PATH");
+            if (mImagePathReceived != null && !mImagePathReceived.matches("")) {
+                Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
+                mIvThumbnail = (ImageView) findViewById(R.id.iv_user_profile);
+                if (thumbnailImage != null){
+                    mIvThumbnail.setImageBitmap(thumbnailImage);
+                }
+            }
         }
 
+//        String mNameReceived = receivedIntent.getStringExtra("ET_NAME");
+//        if (mNameReceived != null && !mNameReceived.matches("")) {
+//            mTvName = (TextView) findViewById(R.id.tv_username);
+//            mTvName.setText(mNameReceived);
+//        }
+//
 //        String mGenderReceived = receivedIntent.getStringExtra("ET_GENDER");
 //        if (mGenderReceived != null && !mGenderReceived.matches("")) {
 //            mTvGender = (TextView) findViewById(R.id.tv_gender);
 //            mTvGender.setText(mGenderReceived);
 //        }
+//
+//        String mAgeReceived = receivedIntent.getStringExtra("ET_AGE");
+//        if (mAgeReceived != null && !mAgeReceived.matches("")) {
+//            mTvAge = (TextView) findViewById(R.id.tv_age);
+//            mTvAge.setText(mAgeReceived);
+//        }
+//
+//        String mHeightReceived = receivedIntent.getStringExtra("ET_HEIGHT");
+//        if (mHeightReceived != null && !mHeightReceived.matches("")) {
+//            mTvHeight = (TextView) findViewById(R.id.tv_height);
+//            mTvHeight.setText(mHeightReceived);
+//        }
+//
+//        String mWeightReceived = receivedIntent.getStringExtra("ET_WEIGHT");
+//        if (mWeightReceived != null && !mWeightReceived.matches("")) {
+//            mTvWeight = (TextView) findViewById(R.id.tv_weight);
+//            mTvWeight.setText(mWeightReceived);
+//        }
+//
+//        String mCountryReceived = receivedIntent.getStringExtra("ET_COUNTRY");
+//        String mCityReceived = receivedIntent.getStringExtra("ET_CITY");
+//        if ((mCountryReceived != null && !mCountryReceived.matches("")) ||
+//                (mCityReceived != null && !mCityReceived.matches(""))) {
+//            String location = "";
+//            if (mCountryReceived != null && !mCountryReceived.matches("")) {
+//                location += mCountryReceived;
+//            }
+//            if ((mCountryReceived != null && !mCountryReceived.matches("")) &&
+//                    (mCityReceived != null && !mCityReceived.matches(""))) {
+//                location += ",\n";
+//            }
+//            if (mCityReceived != null && !mCityReceived.matches("")) {
+//                location += mCityReceived;
+//            }
+//            mTvLocation = (TextView) findViewById(R.id.tv_location);
+//            mTvLocation.setText(location);
+//        }
+//
+//
+//        String mImagePathReceived = receivedIntent.getStringExtra("IMAGE_PATH");
+//        if (mImagePathReceived != null && !mImagePathReceived.matches("")) {
+//            Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
+//            mIvThumbnail = (ImageView) findViewById(R.id.iv_user_profile);
+//            if (thumbnailImage != null){
+//                mIvThumbnail.setImageBitmap(thumbnailImage);
+//            }
+//        }
 
-        String mAgeReceived = receivedIntent.getStringExtra("ET_AGE");
-        if (mAgeReceived != null && !mAgeReceived.matches("")) {
+        if (savedInstanceState != null) {
+            mTvName = (TextView) findViewById(R.id.tv_username);
+            mTvGender = (TextView) findViewById(R.id.tv_gender);
             mTvAge = (TextView) findViewById(R.id.tv_age);
-            mTvAge.setText(mAgeReceived);
-        }
-
-        String mHeightReceived = receivedIntent.getStringExtra("ET_HEIGHT");
-        if (mHeightReceived != null && !mHeightReceived.matches("")) {
             mTvHeight = (TextView) findViewById(R.id.tv_height);
-            mTvHeight.setText(mHeightReceived);
-        }
-
-        String mWeightReceived = receivedIntent.getStringExtra("ET_WEIGHT");
-        if (mWeightReceived != null && !mWeightReceived.matches("")) {
             mTvWeight = (TextView) findViewById(R.id.tv_weight);
-            mTvWeight.setText(mWeightReceived);
-        }
-
-        String mCountryReceived = receivedIntent.getStringExtra("ET_COUNTRY");
-        String mCityReceived = receivedIntent.getStringExtra("ET_CITY");
-        if ((mCountryReceived != null && !mCountryReceived.matches("")) ||
-                (mCityReceived != null && !mCityReceived.matches(""))) {
-            String location = "";
-            if (mCountryReceived != null && !mCountryReceived.matches("")) {
-                location += mCountryReceived;
-            }
-            if ((mCountryReceived != null && !mCountryReceived.matches("")) &&
-                    (mCityReceived != null && !mCityReceived.matches(""))) {
-                location += ",\n";
-            }
-            if (mCityReceived != null && !mCityReceived.matches("")) {
-                location += mCityReceived;
-            }
             mTvLocation = (TextView) findViewById(R.id.tv_location);
-            mTvLocation.setText(location);
-        }
 
-
-        String mImagePathReceived = receivedIntent.getStringExtra("IMAGE_PATH");
-        if (mImagePathReceived != null && !mImagePathReceived.matches("")) {
-            Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
-            mIvThumbnail = (ImageView) findViewById(R.id.iv_user_profile);
-            if (thumbnailImage != null){
-                mIvThumbnail.setImageBitmap(thumbnailImage);
-            }
+            mTvName.setText(savedInstanceState.getString("TV_NAME"));
+            mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
+            mTvAge.setText(savedInstanceState.getString("TV_AGE"));
+            mTvHeight.setText(savedInstanceState.getString("TV_HEIGHT"));
+            mTvWeight.setText(savedInstanceState.getString("TV_WEIGHT"));
+            mTvLocation.setText(savedInstanceState.getString("TV_LOCATION"));
         }
 
         mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
@@ -117,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current state
         mTvName = (TextView) findViewById(R.id.tv_username);
-//        mTvGender = (TextView) findViewById(R.id.tv_gender);
+        mTvGender = (TextView) findViewById(R.id.tv_gender);
         mTvAge = (TextView) findViewById(R.id.tv_age);
         mTvHeight = (TextView) findViewById(R.id.tv_height);
         mTvWeight = (TextView) findViewById(R.id.tv_weight);
@@ -125,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // savedInstanceState.putInt(KEY, VALUE);
         savedInstanceState.putString("TV_NAME", mTvName.getText().toString());
-//        savedInstanceState.putString("TV_GENDER", mTvGender.getText().toString());
+        savedInstanceState.putString("TV_GENDER", mTvGender.getText().toString());
         savedInstanceState.putString("TV_AGE", mTvAge.getText().toString());
         savedInstanceState.putString("TV_HEIGHT", mTvHeight.getText().toString());
         savedInstanceState.putString("TV_WEIGHT", mTvWeight.getText().toString());
@@ -138,14 +219,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         mTvName = (TextView) findViewById(R.id.tv_username);
-//        mTvGender = (TextView) findViewById(R.id.tv_gender);
+        mTvGender = (TextView) findViewById(R.id.tv_gender);
         mTvAge = (TextView) findViewById(R.id.tv_age);
         mTvHeight = (TextView) findViewById(R.id.tv_height);
         mTvWeight = (TextView) findViewById(R.id.tv_weight);
         mTvLocation = (TextView) findViewById(R.id.tv_location);
 
         mTvName.setText(savedInstanceState.getString("TV_NAME"));
-//        mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
+        mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
         mTvAge.setText(savedInstanceState.getString("TV_AGE"));
         mTvHeight.setText(savedInstanceState.getString("TV_HEIGHT"));
         mTvWeight.setText(savedInstanceState.getString("TV_WEIGHT"));
@@ -158,8 +239,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId()) {
 
             case R.id.button_edit_profile: {
-                Intent messageIntent = new Intent(this, EditActivity.class);
-                this.startActivity(messageIntent);
+                Intent editIntent = new Intent(this, EditActivity.class);
+                mTvName = (TextView) findViewById(R.id.tv_username);
+                mTvAge = (TextView) findViewById(R.id.tv_age);
+                mTvHeight = (TextView) findViewById(R.id.tv_height);
+                mTvWeight = (TextView) findViewById(R.id.tv_weight);
+                mTvLocation = (TextView) findViewById(R.id.tv_location);
+                editIntent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                editIntent.putExtra("HEIGHT", mTvHeight.getText().toString());
+//                editIntent.putExtra("GENDER", mTvGender.getText().toString());
+                editIntent.putExtra("AGE", mTvAge.getText().toString());
+                editIntent.putExtra("NAME", mTvName.getText().toString());
+//                editIntent.putExtra("COUNTRY", mCountry);
+//                editIntent.putExtra("CITY", mCity);
+                this.startActivity(editIntent);
                 break;
             }
             case R.id.ib_map: {
@@ -185,6 +278,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (mTvWeight != null && mTvHeight!= null) {
                     intent.putExtra("WEIGHT", mTvWeight.getText().toString());
                     intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+                    intent.putExtra("GENDER", mTvGender.getText().toString());
+                    intent.putExtra("AGE", mTvAge.getText().toString());
                 }
                 this.startActivity(intent);
                 break;

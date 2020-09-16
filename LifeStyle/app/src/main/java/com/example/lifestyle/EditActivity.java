@@ -30,7 +30,6 @@ import java.util.Date;
 public class EditActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText mEtName;
-//    private EditText mEtGender;
     private EditText mEtAge;
     private EditText mEtHeight;
     private EditText mEtWeight;
@@ -45,6 +44,15 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     private String GENDER_FEMALE = "Female";
     private String GENDER_OTHERS = "Others";
     private String GENDER_UNKNOWN = "Unknown";
+
+    private String mHeightReceived;
+    private String mWeightReceived;
+    private String mAgeReceived;
+    private String mGenderReceived;
+    private String mNameReceived;
+    private String mCountryReceived;
+    private String mCityReceived;
+
 
     //Define a request code for the camera
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -61,7 +69,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         setTitle("Edit Profile");
 
         mEtName = (EditText) findViewById(R.id.et_edit_name);
-//        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
         mSpinnerGender = (Spinner) findViewById(R.id.spin_edit_gender);
         mEtAge = (EditText) findViewById(R.id.et_edit_age);
         mEtHeight = (EditText) findViewById(R.id.et_edit_height);
@@ -71,15 +78,39 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         mButtonCamera = (Button) findViewById(R.id.button);
         mIvProfileImage = (ImageView) findViewById(R.id.iv_user_profile);
 
-        if (savedInstanceState != null) {
-            mEtName.setText(savedInstanceState.getString("ET_NAME"));
-//            mEtGender.setText(savedInstanceState.getString("ET_GENDER"));
-            mEtAge.setText(savedInstanceState.getString("ET_AGE"));
-            mEtHeight.setText(savedInstanceState.getString("ET_HEIGHT"));
-            mEtWeight.setText(savedInstanceState.getString("ET_WEIGHT"));
-            mEtCountry.setText(savedInstanceState.getString("ET_COUNTRY"));
-            mEtCity.setText(savedInstanceState.getString("ET_CITY"));
+
+        //Get the intent that created this activity.
+        Intent receivedIntent = getIntent();
+
+        //Get the string data and change the profile textView if data is not null
+        if (receivedIntent.getStringExtra("HEIGHT") != null) {
+            mHeightReceived = receivedIntent.getStringExtra("HEIGHT");
+            if (!mHeightReceived.equals("-------"))
+                mEtHeight.setText(mHeightReceived);
         }
+        if (receivedIntent.getStringExtra("WEIGHT") != null) {
+            mWeightReceived = receivedIntent.getStringExtra("WEIGHT");
+            if (!mWeightReceived.equals("-------"))
+                mEtWeight.setText(mWeightReceived);
+        }
+        if (receivedIntent.getStringExtra("NAME") != null) {
+            mNameReceived = receivedIntent.getStringExtra("NAME");
+            if (!mNameReceived.equals("-------"))
+                mEtName.setText(mNameReceived);
+        }
+        if (receivedIntent.getStringExtra("AGE") != null) {
+            mAgeReceived = receivedIntent.getStringExtra("AGE");
+            if (!mAgeReceived.equals("-------"))
+                mEtAge.setText(mAgeReceived);
+        }
+//        if (receivedIntent.getStringExtra("COUNTRY") != null) {
+//            mCountryReceived = receivedIntent.getStringExtra("COUNTRY");
+//            mEtCountry.setText(mCountryReceived);
+//        }
+//        if (receivedIntent.getStringExtra("CITY") != null) {
+//            mCityReceived = receivedIntent.getStringExtra("CITY");
+//            mEtCity.setText(mCountryReceived);
+//        }
 
         mButtonCamera.setOnClickListener(this);
         setupSpinner();
@@ -153,9 +184,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
 
-//                //gender input
-//                String gender = mEtGender.getText().toString();
-//                messageIntent.putExtra("ET_GENDER", gender);
+                //gender input
+                messageIntent.putExtra("ET_GENDER", mGender);
+
 
                 //age input check
                 String age = mEtAge.getText().toString();
@@ -207,6 +238,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 //image input
                 messageIntent.putExtra("IMAGE_PATH", imagePath);
 
+                // edit input
+                messageIntent.putExtra("EDIT", "true");
+
                 // back to main activity
                 this.startActivity(messageIntent);
 
@@ -225,7 +259,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current state
         mEtName = (EditText) findViewById(R.id.et_edit_name);
-//        mEtGender = (EditText) findViewById(R.id.et_edit_gender);
         mEtAge = (EditText) findViewById(R.id.et_edit_age);
         mEtHeight = (EditText) findViewById(R.id.et_edit_height);
         mEtWeight = (EditText) findViewById(R.id.et_edit_weight);
