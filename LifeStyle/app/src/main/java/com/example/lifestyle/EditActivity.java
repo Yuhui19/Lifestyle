@@ -175,13 +175,17 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this,"Enter name",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    String[] splitStrings = name.split("\\s+");
-                    if(splitStrings.length != 2){
-                        Toast.makeText(this,"Enter valid first and last name",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+//                    String[] splitStrings = name.split("\\s+");
+//                    if(splitStrings.length != 2){
+//                        Toast.makeText(this,"Enter valid first and last name",Toast.LENGTH_SHORT).show();
+//                    }
+//                    else{
+//                        messageIntent.putExtra("ET_NAME", name);
+//                    }
+                    if (name.length() > 0 && name.length() < 100)
                         messageIntent.putExtra("ET_NAME", name);
-                    }
+                    else
+                        Toast.makeText(this,"Enter a shorter name",Toast.LENGTH_SHORT).show();
                 }
 
                 //gender input
