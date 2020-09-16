@@ -53,6 +53,8 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     private String mCountryReceived;
     private String mCityReceived;
 
+    int hasName = 0;
+
 
     //Define a request code for the camera
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -172,7 +174,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 //name input check
                 String name = mEtName.getText().toString();
                 if (name.matches("")){
-                    Toast.makeText(this,"Enter name",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this,"Enter name",Toast.LENGTH_SHORT).show();
+                    mEtName.setBackgroundColor(getResources().getColor(R.color.colorWarningLight));
+                    mEtName.setHint("your name is required");
                 }
                 else {
 //                    String[] splitStrings = name.split("\\s+");
@@ -182,9 +186,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 //                    else{
 //                        messageIntent.putExtra("ET_NAME", name);
 //                    }
-                    if (name.length() > 0 && name.length() < 100)
+                    if (name.length() > 0 && name.length() < 100) {
+                        hasName = 1;
                         messageIntent.putExtra("ET_NAME", name);
-                    else
+                    } else
                         Toast.makeText(this,"Enter a shorter name",Toast.LENGTH_SHORT).show();
                 }
 
@@ -246,7 +251,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 messageIntent.putExtra("EDIT", "true");
 
                 // back to main activity
-                this.startActivity(messageIntent);
+                if (hasName == 1) {
+                    this.startActivity(messageIntent);
+                }
 
                 return true;
             // Respond to a click on the "cancel" menu option
