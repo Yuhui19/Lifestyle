@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId()) {
 
             case R.id.button_edit_profile: {
+                System.out.println("the user click the edit button");
                 Intent editIntent = new Intent(this, EditActivity.class);
                 mTvName = (TextView) findViewById(R.id.tv_username);
                 mTvAge = (TextView) findViewById(R.id.tv_age);

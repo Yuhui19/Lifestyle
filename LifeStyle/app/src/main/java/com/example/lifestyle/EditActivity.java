@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -313,6 +317,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.button: {
                 //The button press should open a camera
+                System.out.println("The user click the take picture button");
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if(cameraIntent.resolveActivity(getPackageManager())!=null){
                     startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
@@ -330,30 +335,41 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             Bundle extras = data.getExtras();
             mThumbnailImage = (Bitmap) extras.get("data");
             System.out.println("get image!!!!!");
-            mIvProfileImage.setImageBitmap(mThumbnailImage);
+            System.out.println("Image bytecount is: " + mThumbnailImage.getByteCount());
+
+            mIvProfileImage.setImageBitmap(Bitmap.createScaledBitmap(mThumbnailImage, 120, 120, false));
+            System.out.println("displaying the image");
 
             //Open a file and write to it
             if (isExternalStorageWritable()) {
-                imagePath = saveImage(mThumbnailImage);
+                try {
+                    imagePath = saveImage(mThumbnailImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 //                mDisplayIntent.putExtra("imagePath", filePathString);
             } else {
                 Toast.makeText(this, "External storage not writable.", Toast.LENGTH_SHORT).show();
             }
+            System.out.println(imagePath);
 
         }
     }
 
-    private String saveImage(Bitmap finalBitmap) {
+    private String saveImage(Bitmap finalBitmap) throws IOException {
 
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/saved_images");
-        myDir.mkdirs();
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String fname = "Thumbnail_"+ timeStamp +".jpg";
-
-        File file = new File(myDir, fname);
-        if (file.exists()) file.delete ();
+//        String root = Environment.getExternalStorageDirectory().toString();
+////        File myDir = new File(root + "/saved_images");
+////        myDir.mkdirs();
+//
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String fname = "Thumbnail_"+ timeStamp +".jpg";
+//
+//        String fpath = root + "/" + fname;
+//        System.out.println("path to store the image is : " + fpath);
+//        File file = new File(fpath);
+//        if (file.exists()) file.delete ();
+        File file = createImageFile();
         try {
             FileOutputStream out = new FileOutputStream(file);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -366,6 +382,23 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
         return file.getAbsolutePath();
     }
+
+    String currentPhotoPath;
+    private File createImageFile() throws IOException, IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
 
     private boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
