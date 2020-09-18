@@ -262,7 +262,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.ib_weather: {
 //                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
-                weather();
+//                weather();
+                Intent intent = new Intent(this, WeatherActivity.class);
+                this.startActivity(intent);
                 break;
             }
             case R.id.ib_bmi: {

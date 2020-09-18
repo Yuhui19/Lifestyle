@@ -13,27 +13,31 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_edit_user_profile"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
             app:cardCornerRadius="250dp"
             app:cardBackgroundColor="@color/divider"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:cardCornerRadius="250dp"
                 android:layout_gravity="center">
 
                 <ImageView
                     android:id="@+id/iv_user_profile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@color/icon"
                     android:scaleType="centerCrop"
+<<<<<<< HEAD
                     android:src="@drawable/profile"
                     android:visibility="visible" />
+=======
+                    android:src="@drawable/profile" />
+>>>>>>> 6bd83f1cfa09f69aad11c54f51d798092f0091f2
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>

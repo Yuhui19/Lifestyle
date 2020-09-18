@@ -29,7 +29,7 @@
 
     <style name="main_activity_name" parent="main_activity_values">
         <item name="android:textSize">34sp</item>
-        <item name="android:fontFamily">monospace</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="edit_buttons">

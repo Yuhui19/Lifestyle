@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:context=".WeatherActivity">
+
+    <TextView
+        android:id="@+id/tv_week_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        tools:text="Thursday, September 17"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_current_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="Salt Lake City"
+        android:textSize="34dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_week_day" />
+
+    <TextView
+        android:id="@+id/tv_current_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="America"
+        android:textSize="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_current_city" />
+
+    <ImageView
+        android:id="@+id/iv_current_weather"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        tools:src="@drawable/partially_cloudy"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_current_country" />
+
+    <TextView
+        android:id="@+id/tv_current_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        tools:text="Partially Cloudy"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_current_temp"
+        app:layout_constraintStart_toStartOf="@+id/tv_current_temp" />
+
+    <TextView
+        android:id="@+id/tv_current_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="92°"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@id/iv_current_weather"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintLeft_toRightOf="@id/iv_current_weather"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_current_weather" />
+
+    <View
+        android:id="@+id/weather_divider_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@id/iv_current_weather" />
+
+    <TextView
+        android:id="@+id/humidity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Humidity"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/iv_current_weather"
+        app:layout_constraintStart_toEndOf="@+id/iv_current_weather"
+        app:layout_constraintTop_toBottomOf="@id/weather_divider_1" />
+
+    <TextView
+        android:id="@+id/humidity_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/humidity_label"
+        app:layout_constraintLeft_toLeftOf="@id/humidity_label"
+        tools:text="21%"
+        android:textSize="34sp"/>
+
+    <TextView
+        android:id="@+id/wind_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wind"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/humidity_label"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_current_weather"
+        app:layout_constraintTop_toTopOf="@+id/humidity_label" />
+
+    <TextView
+        android:id="@+id/wind_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="7 mph"
+        android:textSize="34sp"
+        app:layout_constraintLeft_toLeftOf="@id/wind_label"
+        app:layout_constraintStart_toStartOf="@+id/wind_label"
+        app:layout_constraintTop_toTopOf="@+id/humidity_value"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
