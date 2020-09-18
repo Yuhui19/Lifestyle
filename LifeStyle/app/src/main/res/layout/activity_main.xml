@@ -103,8 +103,7 @@
                         android:layout_height="120dp"
                         android:background="@color/icon"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/profile"
-                        app:tint="@color/colorPrimaryLight" />
+                        android:src="@drawable/profile" />
                 </androidx.cardview.widget.CardView>
 
             </androidx.cardview.widget.CardView>

@@ -331,19 +331,24 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
+            mIvProfileImage = (ImageView) findViewById(R.id.iv_user_profile);
+
             //Get the bitmap
             Bundle extras = data.getExtras();
-            mThumbnailImage = (Bitmap) extras.get("data");
+//            mThumbnailImage = (Bitmap) extras.get("data");
+            Bitmap photo = (Bitmap) extras.get("data");
             System.out.println("get image!!!!!");
-            System.out.println("Image bytecount is: " + mThumbnailImage.getByteCount());
+//            System.out.println("Image bytecount is: " + mThumbnailImage.getByteCount());
 
-            mIvProfileImage.setImageBitmap(Bitmap.createScaledBitmap(mThumbnailImage, 120, 120, false));
+
+//            mIvProfileImage.setImageBitmap(Bitmap.createScaledBitmap(mThumbnailImage, 120, 120, false));
+//            mIvProfileImage.setImageBitmap(photo);
             System.out.println("displaying the image");
 
             //Open a file and write to it
             if (isExternalStorageWritable()) {
                 try {
-                    imagePath = saveImage(mThumbnailImage);
+                    imagePath = saveImage(photo);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -352,6 +357,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "External storage not writable.", Toast.LENGTH_SHORT).show();
             }
             System.out.println(imagePath);
+
+            Bitmap image = BitmapFactory.decodeFile(imagePath);
+//            Bitmap image = Bitmap.createScaledBitmap(rawImage, 120, 120, true);
+            mIvProfileImage.setImageBitmap(image);
 
         }
     }
@@ -385,18 +394,22 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
     String currentPhotoPath;
     private File createImageFile() throws IOException, IOException {
-        // Create an image file name
+//        // Create an image file name
+        String directory = getFilesDir().getAbsolutePath();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+        String imageFileName = "JPEG_" + timeStamp + "_.jpg";
+//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File image = File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                directory      /* directory */
+//        );
         // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
+////        currentPhotoPath = image.getAbsolutePath();
+
+
+        File file = new File(directory, imageFileName);
+        return file;
     }
 
 
