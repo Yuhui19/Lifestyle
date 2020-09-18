@@ -32,7 +32,6 @@
                     android:layout_height="100dp"
                     android:background="@color/icon"
                     android:scaleType="centerCrop"
-<<<<<<< HEAD
                     android:src="@drawable/profile"
                     android:visibility="visible" />
 =======

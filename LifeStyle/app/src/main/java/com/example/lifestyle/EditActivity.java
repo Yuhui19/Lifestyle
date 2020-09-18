@@ -338,11 +338,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 //            mThumbnailImage = (Bitmap) extras.get("data");
             Bitmap photo = (Bitmap) extras.get("data");
             System.out.println("get image!!!!!");
-//            System.out.println("Image bytecount is: " + mThumbnailImage.getByteCount());
-
-
-//            mIvProfileImage.setImageBitmap(Bitmap.createScaledBitmap(mThumbnailImage, 120, 120, false));
-//            mIvProfileImage.setImageBitmap(photo);
             System.out.println("displaying the image");
 
             //Open a file and write to it
@@ -359,7 +354,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println(imagePath);
 
             Bitmap image = BitmapFactory.decodeFile(imagePath);
-//            Bitmap image = Bitmap.createScaledBitmap(rawImage, 120, 120, true);
             mIvProfileImage.setImageBitmap(image);
 
         }
@@ -367,16 +361,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
     private String saveImage(Bitmap finalBitmap) throws IOException {
 
-//        String root = Environment.getExternalStorageDirectory().toString();
-////        File myDir = new File(root + "/saved_images");
-////        myDir.mkdirs();
-//
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String fname = "Thumbnail_"+ timeStamp +".jpg";
-//
-//        String fpath = root + "/" + fname;
-//        System.out.println("path to store the image is : " + fpath);
-//        File file = new File(fpath);
 //        if (file.exists()) file.delete ();
         File file = createImageFile();
         try {
@@ -398,16 +382,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         String directory = getFilesDir().getAbsolutePath();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_.jpg";
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",         /* suffix */
-//                directory      /* directory */
-//        );
-        // Save a file: path for use with ACTION_VIEW intents
-////        currentPhotoPath = image.getAbsolutePath();
-
-
         File file = new File(directory, imageFileName);
         return file;
     }
