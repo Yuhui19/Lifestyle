@@ -58,6 +58,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/status_active"
+                android:checked="true"
                 style="@style/goal_activity_values"/>
 
             <RadioButton
@@ -84,21 +85,22 @@
                 android:id="@+id/goal_lose_weight"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="lose"
+                android:text="Lose"
+                android:checked="true"
                 style="@style/goal_activity_values"/>
 
             <RadioButton
                 android:id="@+id/goal_gain_weight"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="gain"
+                android:text="Gain"
                 style="@style/goal_activity_values"/>
 
             <RadioButton
                 android:id="@+id/goal_maintain_weight"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="maintain"
+                android:text="Maintain"
                 style="@style/goal_activity_values"/>
         </RadioGroup>
 
