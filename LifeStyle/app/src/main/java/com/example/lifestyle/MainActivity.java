@@ -1,6 +1,7 @@
 package com.example.lifestyle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,14 +36,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mIbBMI;
     private ImageButton mIbGoal;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+        if (isTablet()) {
+            fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
+            fTrans.commit();
+        }
 
         //Get the intent that created this activity.
         Intent receivedIntent = getIntent();
@@ -311,5 +315,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch(ActivityNotFoundException e){
             Toast.makeText(getApplicationContext(), "activity not found", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean isTablet() {
+        return getResources().getBoolean(R.bool.isTablet);
     }
 }

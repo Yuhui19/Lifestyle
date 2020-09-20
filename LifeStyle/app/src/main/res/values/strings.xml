@@ -36,7 +36,6 @@
     <string name="goal_weight_question">How many weights(lbs) would you like to lose, gain, or maintain?</string>
     <string name="BMR_label">BMR (Basal Metabolic Rate)</string>
     <string name="goal_calories_label">Suggested Calories</string>
-    <string name="warning_label">Caution</string>
-
+    <string name="warning_label">Suggestion</string>
 
 </resources>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_user_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="32dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/cv_user_profile"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/main_activity_name" />
+
+            <TextView
+                android:id="@+id/tv_location_label"
+                style="@style/main_activity_labels"
+                android:text="@string/location_label" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                style="@style/main_activity_values" />
+
+            <TextView
+                android:id="@+id/tv_country_label"
+                style="@style/main_activity_labels"
+                android:text="Country" />
+
+            <TextView
+                android:id="@+id/tv_country"
+                style="@style/main_activity_values" />
+
+            <TextView
+                android:id="@+id/tv_city_label"
+                style="@style/main_activity_labels"
+                android:text="City" />
+
+            <TextView
+                android:id="@+id/tv_city"
+                style="@style/main_activity_values" />
+
+            <TextView
+                android:id="@+id/tv_gender_label"
+                style="@style/main_activity_labels"
+                android:text="@string/gender_label" />
+
+            <TextView
+                android:id="@+id/tv_gender"
+                style="@style/main_activity_values" />
+
+            <TextView
+                android:id="@+id/tv_age_label"
+                style="@style/main_activity_labels"
+                android:text="@string/age_label" />
+
+            <TextView
+                android:id="@+id/tv_age"
+                style="@style/main_activity_values" />
+
+            <TextView
+                android:id="@+id/tv_height_label"
+                style="@style/main_activity_labels"
+                android:text="@string/height_label" />
+
+            <TextView
+                android:id="@+id/tv_height"
+                style="@style/main_activity_values" />
+
+            <TextView
+                android:id="@+id/tv_weight_label"
+                style="@style/main_activity_labels"
+                android:text="@string/weight_label" />
+
+            <TextView
+                android:id="@+id/tv_weight"
+                style="@style/main_activity_values" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_user_profile"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginRight="8dp"
+            app:cardBackgroundColor="@color/divider"
+            app:cardCornerRadius="250dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/linearLayout_user_info">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="250dp">
+
+                <ImageView
+                    android:id="@+id/iv_user_profile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@color/icon"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/button_edit_profile"
+            style="@style/edit_buttons"
+            android:layout_marginTop="16dp"
+            android:text="@string/edit_profile"
+            app:layout_constraintLeft_toRightOf="@id/cv_user_profile"
+            app:layout_constraintRight_toLeftOf="@id/cv_user_profile"
+            app:layout_constraintTop_toBottomOf="@+id/cv_user_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

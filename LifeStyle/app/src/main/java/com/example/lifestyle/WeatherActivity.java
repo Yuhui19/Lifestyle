@@ -89,8 +89,12 @@ public class WeatherActivity extends AppCompatActivity {
 
             try {
                 jsonWeatherData = NetworkUtils.getDataFromURL(weatherDataURL);
-                weatherData = JSONWeatherUtils.getWeatherData(jsonWeatherData);
-                return weatherData;
+                if (jsonWeatherData == null) {
+                    return new WeatherData();
+                } else {
+                    weatherData = JSONWeatherUtils.getWeatherData(jsonWeatherData);
+                    return weatherData;
+                }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -144,7 +148,6 @@ public class WeatherActivity extends AppCompatActivity {
                 else {
                     mIvCurrentWeather.setImageResource(R.drawable.windy);
                 }
-
 
             }
             else {
