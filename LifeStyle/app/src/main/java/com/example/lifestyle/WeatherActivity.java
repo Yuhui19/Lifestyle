@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.security.NetworkSecurityPolicy;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -125,7 +126,26 @@ public class WeatherActivity extends AppCompatActivity {
                 mTvCurrentWeather.setText(weatherData.getCurrentCondition().getCondition());
                 mTvHumidityValue.setText(Double.toString(weatherData.getCurrentCondition().getHumidity()) + "%");
                 mTvWindValue.setText(Double.toString(weatherData.getWind().getSpeed()) + "mph");
-                mIvCurrentWeather.setImageResource(R.drawable.rainy);
+
+                String condition = weatherData.getCurrentCondition().getCondition();
+
+                if (condition.equals("Rain")) {
+                    mIvCurrentWeather.setImageResource(R.drawable.rainy);
+                }
+                else if (condition.equals("Snow")) {
+                    mIvCurrentWeather.setImageResource(R.drawable.snow);
+                }
+                else if (condition.equals("Clouds")) {
+                    mIvCurrentWeather.setImageResource(R.drawable.cloudy);
+                }
+                else if (condition.equals("Clear")) {
+                    mIvCurrentWeather.setImageResource(R.drawable.sunny);
+                }
+                else {
+                    mIvCurrentWeather.setImageResource(R.drawable.windy);
+                }
+
+
             }
             else {
                 System.out.println("weather data is null!!!");
