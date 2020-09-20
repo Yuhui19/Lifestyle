@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.security.NetworkSecurityPolicy;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //Get the intent that created this activity.
         Intent receivedIntent = getIntent();
@@ -82,15 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if ((mCountryReceived != null && !mCountryReceived.matches("")) ||
                     (mCityReceived != null && !mCityReceived.matches(""))) {
                 String location = "";
-                if (mCountryReceived != null && !mCountryReceived.matches("")) {
-                    location += mCountryReceived;
+                if (mCityReceived != null && !mCityReceived.matches("")) {
+                    location += mCityReceived;
                 }
                 if ((mCountryReceived != null && !mCountryReceived.matches("")) &&
                         (mCityReceived != null && !mCityReceived.matches(""))) {
                     location += ",\n";
                 }
-                if (mCityReceived != null && !mCityReceived.matches("")) {
-                    location += mCityReceived;
+                if (mCountryReceived != null && !mCountryReceived.matches("")) {
+                    location += mCountryReceived;
                 }
                 mTvLocation = (TextView) findViewById(R.id.tv_location);
                 mTvLocation.setText(location);
@@ -263,7 +265,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ib_weather: {
 //                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
 //                weather();
+                mTvLocation = (TextView) findViewById(R.id.tv_location);
                 Intent intent = new Intent(this, WeatherActivity.class);
+                intent.putExtra("LOCATION", mTvLocation.getText());
                 this.startActivity(intent);
                 break;
             }
