@@ -54,17 +54,25 @@ public class WeatherActivity extends AppCompatActivity {
         Intent receivedIntent = getIntent();
 
         //Get the string data and change the profile textView if data is not null
-        if (receivedIntent.getStringExtra("LOCATION") != null) {
-            String receivedLocation = receivedIntent.getStringExtra("LOCATION");
-            receivedLocation.replaceAll(" ", "&");
-            location = receivedLocation;
+        if (receivedIntent.getStringExtra("CITY") != null) {
+            String receivedCity = receivedIntent.getStringExtra("CITY");
+            receivedCity.toLowerCase();
+            receivedCity.replaceAll(" ", "&");
+            location = receivedCity;
+            mTvCurrentCity.setText(receivedIntent.getStringExtra("CITY"));
         }
 
-        if (location != null) {
-            String[] locations = location.split(",");
-            mTvCurrentCity.setText(locations[0].replaceAll("&", " "));
-            if (location.length() == 2) mTvCurrentCountry.setText(locations[1]);
+        if (receivedIntent.getStringExtra("COUNTRY") != null) {
+            String receivedCountry = receivedIntent.getStringExtra("COUNTRY");
+            receivedCountry.replaceAll(" ", "&");
+            receivedCountry.toLowerCase();
+            location += "," + receivedCountry;
+            mTvCurrentCountry.setText(receivedIntent.getStringExtra("COUNTRY"));
+        }
 
+
+
+        if (location != null) {
             WeatherTask weatherTask = new WeatherTask();
             weatherTask.execute(location);
         }

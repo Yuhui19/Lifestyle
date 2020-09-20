@@ -98,11 +98,11 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
 
                 // get checked user status
                 int selectedStatusId = mRadioGroupStatus.getCheckedRadioButtonId();
-                mRadioButtonStatus = findViewById(selectedStatusId);
-                if (mRadioButtonStatus.getText().equals("status_active")) {
+//                mRadioButtonStatus = findViewById(selectedStatusId);
+                if (selectedStatusId == R.id.status_active) {
                     status = 1;
                 }
-                else if (mRadioButtonStatus.getText().equals("status_sedentary")) {
+                else if (selectedStatusId == R.id.status_sedentary) {
                     status = -1;
                 }
 
@@ -110,12 +110,23 @@ public class GoalActivity extends AppCompatActivity implements View.OnClickListe
 
                 // get user's goal - whether to lose, gain or maintain weight
                 // 0 represents maintain weight, 1 represents gain weight, -1 represents lose weight
+//                int selectedGoalId = mRadioGroupGoal.getCheckedRadioButtonId();
+//                mRadioButtonGoal = findViewById(selectedGoalId);
+//                if (mRadioButtonGoal.getText().equals("lose")) {
+//                    loseOrGainWeight = -1;
+//                }
+//                else if (mRadioButtonGoal.getText().equals("gain")) {
+//                    loseOrGainWeight = 1;
+//                }
+//                else {
+//                    loseOrGainWeight = 0;
+//                }
+
                 int selectedGoalId = mRadioGroupGoal.getCheckedRadioButtonId();
-                mRadioButtonGoal = findViewById(selectedGoalId);
-                if (mRadioButtonGoal.getText().equals("lose")) {
+                if (selectedGoalId == R.id.goal_lose_weight) {
                     loseOrGainWeight = -1;
                 }
-                else if (mRadioButtonGoal.getText().equals("gain")) {
+                else if (selectedGoalId == R.id.goal_gain_weight) {
                     loseOrGainWeight = 1;
                 }
                 else {

@@ -109,14 +109,18 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             if (!mAgeReceived.equals("-------"))
                 mEtAge.setText(mAgeReceived);
         }
-//        if (receivedIntent.getStringExtra("COUNTRY") != null) {
-//            mCountryReceived = receivedIntent.getStringExtra("COUNTRY");
-//            mEtCountry.setText(mCountryReceived);
-//        }
-//        if (receivedIntent.getStringExtra("CITY") != null) {
-//            mCityReceived = receivedIntent.getStringExtra("CITY");
-//            mEtCity.setText(mCountryReceived);
-//        }
+        if (receivedIntent.getStringExtra("COUNTRY") != null) {
+            mCountryReceived = receivedIntent.getStringExtra("COUNTRY");
+            if (!mCountryReceived.equals("-------")) {
+                mEtCountry.setText(mCountryReceived);
+            }
+        }
+        if (receivedIntent.getStringExtra("CITY") != null) {
+            mCityReceived = receivedIntent.getStringExtra("CITY");
+            if (!mCityReceived.equals("-------")) {
+                mEtCity.setText(mCityReceived);
+            }
+        }
 
         mButtonCamera.setOnClickListener(this);
         setupSpinner();
