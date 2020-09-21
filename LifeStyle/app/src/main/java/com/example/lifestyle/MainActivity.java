@@ -100,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (mCountryReceived != null && !mCountryReceived.matches("")) {
                     location += mCountryReceived;
                 }
-                mTvLocation = (TextView) findViewById(R.id.tv_location);
-                mTvLocation.setText(location);
             }
             if (mCountryReceived != null && !mCountryReceived.matches("")) {
                 mTvCountry = (TextView) findViewById(R.id.tv_country);
@@ -188,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvAge = (TextView) findViewById(R.id.tv_age);
             mTvHeight = (TextView) findViewById(R.id.tv_height);
             mTvWeight = (TextView) findViewById(R.id.tv_weight);
-            mTvLocation = (TextView) findViewById(R.id.tv_location);
             mTvCountry = (TextView) findViewById(R.id.tv_country);
             mTvCity = (TextView) findViewById(R.id.tv_city);
 
@@ -222,7 +219,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvAge = (TextView) findViewById(R.id.tv_age);
         mTvHeight = (TextView) findViewById(R.id.tv_height);
         mTvWeight = (TextView) findViewById(R.id.tv_weight);
-        mTvLocation = (TextView) findViewById(R.id.tv_location);
         mTvCountry = (TextView) findViewById(R.id.tv_country);
         mTvCity = (TextView) findViewById(R.id.tv_city);
 
@@ -232,7 +228,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         savedInstanceState.putString("TV_AGE", mTvAge.getText().toString());
         savedInstanceState.putString("TV_HEIGHT", mTvHeight.getText().toString());
         savedInstanceState.putString("TV_WEIGHT", mTvWeight.getText().toString());
-        savedInstanceState.putString("TV_LOCATION", mTvLocation.getText().toString());
         savedInstanceState.putString("TV_COUNTRY", mTvCountry.getText().toString());
         savedInstanceState.putString("TV_CITY", mTvCity.getText().toString());
 
@@ -247,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvAge = (TextView) findViewById(R.id.tv_age);
         mTvHeight = (TextView) findViewById(R.id.tv_height);
         mTvWeight = (TextView) findViewById(R.id.tv_weight);
-        mTvLocation = (TextView) findViewById(R.id.tv_location);
         mTvCountry = (TextView) findViewById(R.id.tv_country);
         mTvCity = (TextView) findViewById(R.id.tv_city);
 
@@ -273,7 +267,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mTvAge = (TextView) findViewById(R.id.tv_age);
                 mTvHeight = (TextView) findViewById(R.id.tv_height);
                 mTvWeight = (TextView) findViewById(R.id.tv_weight);
-                mTvLocation = (TextView) findViewById(R.id.tv_location);
                 mTvCountry = (TextView) findViewById(R.id.tv_country);
                 mTvCity = (TextView) findViewById(R.id.tv_city);
                 editIntent.putExtra("WEIGHT", mTvWeight.getText().toString());
@@ -293,7 +286,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ib_weather: {
 //                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
 //                weather();
-                mTvLocation = (TextView) findViewById(R.id.tv_location);
                 mTvCountry = (TextView) findViewById(R.id.tv_country);
                 mTvCity = (TextView) findViewById(R.id.tv_city);
                 Intent intent = new Intent(this, WeatherActivity.class);

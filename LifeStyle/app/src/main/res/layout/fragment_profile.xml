@@ -28,15 +28,6 @@
                 style="@style/main_activity_name" />
 
             <TextView
-                android:id="@+id/tv_location_label"
-                style="@style/main_activity_labels"
-                android:text="@string/location_label" />
-
-            <TextView
-                android:id="@+id/tv_location"
-                style="@style/main_activity_values" />
-
-            <TextView
                 android:id="@+id/tv_country_label"
                 style="@style/main_activity_labels"
                 android:text="Country" />
