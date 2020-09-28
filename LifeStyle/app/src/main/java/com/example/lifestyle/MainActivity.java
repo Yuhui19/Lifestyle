@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvCity.setText(savedInstanceState.getString("TV_CITY"));
         }
 
+<<<<<<< HEAD
         if (!isTablet()) {
             mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
             mbuttonEdit.setOnClickListener(this);
@@ -198,6 +199,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mIbGoal.setOnClickListener(this);
         }
 
+=======
+        mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
+        mbuttonEdit.setOnClickListener(this);
+        mIbMap = (ImageButton) findViewById(R.id.ib_map);
+        mIbMap.setOnClickListener(this);
+        mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
+        mIbWeather.setOnClickListener(this);
+        mIbBMI = (ImageButton) findViewById(R.id.ib_bmi);
+        mIbBMI.setOnClickListener(this);
+        mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
+        mIbGoal.setOnClickListener(this);
+>>>>>>> cf2437e0cdd4990b3fecae5847feb137e72338e1
     }
 
     @Override
@@ -293,12 +306,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.ib_goal: {
                 Intent intent = new Intent(this, GoalActivity.class);
-                if (mTvWeight != null && mTvHeight!= null) {
+//                if (mTvWeight != null && mTvHeight!= null && mTvAge != null) {
+//                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+//                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+//                    intent.putExtra("GENDER", mTvGender.getText().toString());
+//                    intent.putExtra("AGE", mTvAge.getText().toString());
+//                }
+                intent.putExtra("GENDER", mTvGender.getText().toString());
+                if (mTvWeight != null)
                     intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                if (mTvHeight != null)
                     intent.putExtra("HEIGHT", mTvHeight.getText().toString());
-                    intent.putExtra("GENDER", mTvGender.getText().toString());
+                if (mTvAge != null)
                     intent.putExtra("AGE", mTvAge.getText().toString());
-                }
                 this.startActivity(intent);
                 break;
             }
