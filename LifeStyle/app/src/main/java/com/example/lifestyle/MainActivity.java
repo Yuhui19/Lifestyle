@@ -183,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvCity.setText(savedInstanceState.getString("TV_CITY"));
         }
 
-//        mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
-//        mbuttonEdit.setOnClickListener(this);
+        mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
+        mbuttonEdit.setOnClickListener(this);
         mIbMap = (ImageButton) findViewById(R.id.ib_map);
         mIbMap.setOnClickListener(this);
         mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
@@ -288,12 +288,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.ib_goal: {
                 Intent intent = new Intent(this, GoalActivity.class);
-                if (mTvWeight != null && mTvHeight!= null) {
+//                if (mTvWeight != null && mTvHeight!= null && mTvAge != null) {
+//                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+//                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+//                    intent.putExtra("GENDER", mTvGender.getText().toString());
+//                    intent.putExtra("AGE", mTvAge.getText().toString());
+//                }
+                intent.putExtra("GENDER", mTvGender.getText().toString());
+                if (mTvWeight != null)
                     intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                if (mTvHeight != null)
                     intent.putExtra("HEIGHT", mTvHeight.getText().toString());
-                    intent.putExtra("GENDER", mTvGender.getText().toString());
+                if (mTvAge != null)
                     intent.putExtra("AGE", mTvAge.getText().toString());
-                }
                 this.startActivity(intent);
                 break;
             }

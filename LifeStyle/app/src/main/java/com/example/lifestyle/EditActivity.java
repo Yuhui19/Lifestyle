@@ -194,7 +194,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 //                    else{
 //                        messageIntent.putExtra("ET_NAME", name);
 //                    }
-                    if (name.length() > 0 && name.length() < 100) {
+                    if (name.length() > 0 && name.length() < 50) {
                         hasName = 1;
                         messageIntent.putExtra("ET_NAME", name);
                     } else
@@ -211,8 +211,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this,"Enter age",Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        Integer.parseInt(age);
-                        messageIntent.putExtra("ET_AGE", age);
+                        int ageValue = Integer.parseInt(age);
+                        if (0 <= ageValue && ageValue <= 200)
+                            messageIntent.putExtra("ET_AGE", age);
+                        else
+                            Toast.makeText(this, "Enter a valid age.", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(this, "Enter a valid age.", Toast.LENGTH_SHORT).show();
                     }
@@ -224,8 +227,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this,"Enter height",Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        Double.parseDouble(height);
-                        messageIntent.putExtra("ET_HEIGHT", height);
+                        double heightValue = Double.parseDouble(height);
+                        if (0 <= heightValue && heightValue <= 10)
+                            messageIntent.putExtra("ET_HEIGHT", height);
+                        else
+                            Toast.makeText(this, "Enter a valid height.", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(this, "Enter a valid height.", Toast.LENGTH_SHORT).show();
                     }
@@ -237,8 +243,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this,"Enter weight",Toast.LENGTH_SHORT).show();
                 } else {
                     try {
-                        Double.parseDouble(weight);
-                        messageIntent.putExtra("ET_WEIGHT", weight);
+                        double weightValue = Double.parseDouble(weight);
+                        if (0 <= weightValue && weightValue <= 1800)
+                            messageIntent.putExtra("ET_WEIGHT", weight);
+                        else
+                            Toast.makeText(this, "Enter a valid weight.", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Toast.makeText(this, "Enter a valid weight.", Toast.LENGTH_SHORT).show();
                     }
@@ -246,11 +255,25 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
                 //country input
                 String country = mEtCountry.getText().toString();
-                messageIntent.putExtra("ET_COUNTRY", country);
+                if (country.matches("")) {
+                    Toast.makeText(this, "Enter country", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (country.length() > 0 && country.length() < 20) {
+                        messageIntent.putExtra("ET_COUNTRY", country);
+                    } else
+                        Toast.makeText(this,"Enter a valid country name",Toast.LENGTH_SHORT).show();
+                }
 
                 //city input
                 String city = mEtCity.getText().toString();
-                messageIntent.putExtra("ET_CITY", city);
+                if (country.matches("")) {
+                    Toast.makeText(this, "Enter city", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (country.length() > 0 && country.length() < 20) {
+                        messageIntent.putExtra("ET_CITY", city);
+                    } else
+                        Toast.makeText(this,"Enter a valid city name",Toast.LENGTH_SHORT).show();
+                }
 
                 //image input
                 messageIntent.putExtra("IMAGE_PATH", imagePath);

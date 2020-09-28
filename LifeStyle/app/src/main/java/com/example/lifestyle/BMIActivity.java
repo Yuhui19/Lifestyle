@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BMIActivity extends AppCompatActivity {
 
@@ -25,9 +26,11 @@ public class BMIActivity extends AppCompatActivity {
         // calculate the BMI value
         Double BMI = 0.0;
         if (!mHeightReceived.equals("-------") && !mWeightReceived.equals("-------")) {
-            int height = Integer.parseInt(mHeightReceived);
-            int weight = Integer.parseInt(mWeightReceived);
-            BMI = (double) 703 * ((double) weight / (double) (144 * height * height));
+            double height = Double.parseDouble(mHeightReceived);
+            double weight = Double.parseDouble(mWeightReceived);
+            BMI = 703 * (weight / (144 * height * height));
+        } else {
+            Toast.makeText(this, "Need height and weight value", Toast.LENGTH_SHORT).show();
         }
 
 
