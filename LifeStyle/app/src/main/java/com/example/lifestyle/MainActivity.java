@@ -185,21 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvCity.setText(savedInstanceState.getString("TV_CITY"));
         }
 
-<<<<<<< HEAD
-        if (!isTablet()) {
-            mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
-            mbuttonEdit.setOnClickListener(this);
-            mIbMap = (ImageButton) findViewById(R.id.ib_map);
-            mIbMap.setOnClickListener(this);
-            mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
-            mIbWeather.setOnClickListener(this);
-            mIbBMI = (ImageButton) findViewById(R.id.ib_bmi);
-            mIbBMI.setOnClickListener(this);
-            mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
-            mIbGoal.setOnClickListener(this);
-        }
-
-=======
         mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
         mbuttonEdit.setOnClickListener(this);
         mIbMap = (ImageButton) findViewById(R.id.ib_map);
@@ -210,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIbBMI.setOnClickListener(this);
         mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
         mIbGoal.setOnClickListener(this);
->>>>>>> cf2437e0cdd4990b3fecae5847feb137e72338e1
+
     }
 
     @Override
