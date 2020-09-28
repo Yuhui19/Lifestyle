@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
         if (isTablet()) {
-            fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
+//            fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
+
+            fTrans.replace(R.id.module_info_fragment_tablet, new WeatherFragment(),"frag_profile");
             fTrans.commit();
         }
 
@@ -183,16 +185,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvCity.setText(savedInstanceState.getString("TV_CITY"));
         }
 
-//        mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
-//        mbuttonEdit.setOnClickListener(this);
-        mIbMap = (ImageButton) findViewById(R.id.ib_map);
-        mIbMap.setOnClickListener(this);
-        mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
-        mIbWeather.setOnClickListener(this);
-        mIbBMI = (ImageButton) findViewById(R.id.ib_bmi);
-        mIbBMI.setOnClickListener(this);
-        mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
-        mIbGoal.setOnClickListener(this);
+        if (!isTablet()) {
+            mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
+            mbuttonEdit.setOnClickListener(this);
+            mIbMap = (ImageButton) findViewById(R.id.ib_map);
+            mIbMap.setOnClickListener(this);
+            mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
+            mIbWeather.setOnClickListener(this);
+            mIbBMI = (ImageButton) findViewById(R.id.ib_bmi);
+            mIbBMI.setOnClickListener(this);
+            mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
+            mIbGoal.setOnClickListener(this);
+        }
+
     }
 
     @Override
