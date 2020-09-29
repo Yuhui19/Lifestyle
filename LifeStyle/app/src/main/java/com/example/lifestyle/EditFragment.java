@@ -1,5 +1,6 @@
 package com.example.lifestyle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,20 +21,26 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class EditFragment extends Fragment implements View.OnClickListener{
+
+    private MyViewModel model;
 
     private EditText mEtName;
     private EditText mEtAge;
@@ -67,9 +74,12 @@ public class EditFragment extends Fragment implements View.OnClickListener{
     Bitmap mThumbnailImage;
     String imagePath;
 
+
     public EditFragment() {
         setHasOptionsMenu(true);
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +93,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit, container, false);
 
+
         mEtName = (EditText) view.findViewById(R.id.et_edit_name);
         mSpinnerGender = (Spinner) view.findViewById(R.id.spin_edit_gender);
         mEtAge = (EditText) view.findViewById(R.id.et_edit_age);
@@ -92,6 +103,45 @@ public class EditFragment extends Fragment implements View.OnClickListener{
         mEtCity = (EditText) view.findViewById(R.id.et_edit_city);
         mButtonCamera = (Button) view.findViewById(R.id.button);
         mIvProfileImage = (ImageView) view.findViewById(R.id.iv_user_profile);
+
+        Map<String, String> userInfo;
+
+        if (isTablet()) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            userInfo = mainActivity.getUserInfo();
+        }
+        else {
+            EditActivity editActivity = (EditActivity) getActivity();
+            userInfo = editActivity.getUserInfo();
+        }
+
+        if (userInfo.containsKey("name") && userInfo.get("name") != null) {
+            mEtName.setText(userInfo.get("name"));
+        }
+        if (userInfo.containsKey("age") && userInfo.get("age") != null) {
+            mEtAge.setText(userInfo.get("age"));
+        }
+        if (userInfo.containsKey("height") && userInfo.get("height") != null) {
+            mEtHeight.setText(userInfo.get("height"));
+        }
+        if (userInfo.containsKey("weight") && userInfo.get("weight") != null) {
+            mEtWeight.setText(userInfo.get("weight"));
+        }
+        if (userInfo.containsKey("country") && userInfo.get("country") != null) {
+            mEtCountry.setText(userInfo.get("country"));
+        }
+        if (userInfo.containsKey("city") && userInfo.get("city") != null) {
+            mEtCity.setText(userInfo.get("city"));
+        }
+        if (userInfo.containsKey("imagePath") && userInfo.get("imagePath") != null) {
+            String mImagePathReceived = userInfo.get("imagePath");
+            Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
+            mIvProfileImage = (ImageView) view.findViewById(R.id.iv_user_profile);
+            if (thumbnailImage != null){
+                mIvProfileImage.setImageBitmap(thumbnailImage);
+            }
+        }
+
         mButtonCamera.setOnClickListener(this);
         setupSpinner();
         return view;
@@ -148,13 +198,8 @@ public class EditFragment extends Fragment implements View.OnClickListener{
             case R.id.action_save:
                 // save the data and send back to MainActivity
                 if (isTablet()) {
-                    FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
-                    fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(), "frag_profile");
-                    fTrans.addToBackStack(null);
-                    fTrans.commit();
-                }
-                else {
-                    Intent messageIntent = new Intent(getActivity(), MainActivity.class);
+                    // pass data from EditFragment to MainActivity
+                    Bundle result = new Bundle();
 
                     //name input check
                     String name = mEtName.getText().toString();
@@ -163,22 +208,15 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         mEtName.setBackgroundColor(getResources().getColor(R.color.colorWarningLight));
                         mEtName.setHint("your name is required");
                     } else {
-//                    String[] splitStrings = name.split("\\s+");
-//                    if(splitStrings.length != 2){
-//                        Toast.makeText(this,"Enter valid first and last name",Toast.LENGTH_SHORT).show();
-//                    }
-//                    else{
-//                        messageIntent.putExtra("ET_NAME", name);
-//                    }
                         if (name.length() > 0 && name.length() < 50) {
                             hasName = 1;
-                            messageIntent.putExtra("ET_NAME", name);
+                            result.putString("ET_NAME", name);
                         } else
                             Toast.makeText(getActivity(), "Enter a shorter name", Toast.LENGTH_SHORT).show();
                     }
 
                     //gender input
-                    messageIntent.putExtra("ET_GENDER", mGender);
+                    result.putString("ET_GENDER", mGender);
 
 
                     //age input check
@@ -189,7 +227,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         try {
                             int ageValue = Integer.parseInt(age);
                             if (0 <= ageValue && ageValue <= 200)
-                                messageIntent.putExtra("ET_AGE", age);
+                                result.putString("ET_AGE", age);
                             else
                                 Toast.makeText(getActivity(), "Enter a valid age.", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
@@ -201,11 +239,13 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                     String height = mEtHeight.getText().toString();
                     if (height.matches("")) {
                         Toast.makeText(getActivity(), "Enter height", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                    else {
+
                         try {
                             double heightValue = Double.parseDouble(height);
                             if (0 <= heightValue && heightValue <= 10)
-                                messageIntent.putExtra("ET_HEIGHT", height);
+                                result.putString("ET_HEIGHT", height);
                             else
                                 Toast.makeText(getActivity(), "Enter a valid height.", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
@@ -221,7 +261,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         try {
                             double weightValue = Double.parseDouble(weight);
                             if (0 <= weightValue && weightValue <= 1800)
-                                messageIntent.putExtra("ET_WEIGHT", weight);
+                                result.putString("ET_WEIGHT", weight);
                             else
                                 Toast.makeText(getActivity(), "Enter a valid weight.", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
@@ -235,7 +275,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         Toast.makeText(getActivity(), "Enter country", Toast.LENGTH_SHORT).show();
                     } else {
                         if (country.length() > 0 && country.length() < 20) {
-                            messageIntent.putExtra("ET_COUNTRY", country);
+                            result.putString("ET_COUNTRY", country);
                         } else
                             Toast.makeText(getActivity(), "Enter a valid country name", Toast.LENGTH_SHORT).show();
                     }
@@ -246,19 +286,127 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         Toast.makeText(getActivity(), "Enter city", Toast.LENGTH_SHORT).show();
                     } else {
                         if (country.length() > 0 && country.length() < 20) {
-                            messageIntent.putExtra("ET_CITY", city);
+                            result.putString("ET_CITY", city);
                         } else
                             Toast.makeText(getActivity(), "Enter a valid city name", Toast.LENGTH_SHORT).show();
                     }
 
                     //image input
-                    messageIntent.putExtra("IMAGE_PATH", imagePath);
+                    result.putString("IMAGE_PATH", imagePath);
+
+
+                    MainActivity activity = (MainActivity) getActivity();
+                    activity.onSaveUserInfo(result);
+
+                    // switch fragment
+                    FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
+                    fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(), "frag_profile");
+                    fTrans.commit();
+
+                }
+                else {
+                    Intent messageIntent = new Intent(getActivity(), MainActivity.class);
+                    Bundle userBundle = new Bundle();
+
+                    //name input check
+                    String name = mEtName.getText().toString();
+                    if (name.matches("")) {
+//                    Toast.makeText(this,"Enter name",Toast.LENGTH_SHORT).show();
+                        mEtName.setBackgroundColor(getResources().getColor(R.color.colorWarningLight));
+                        mEtName.setHint("your name is required");
+                    } else {
+                        if (name.length() > 0 && name.length() < 50) {
+                            hasName = 1;
+//                            messageIntent.putExtra("ET_NAME", name);
+                            userBundle.putString("ET_NAME", name);
+                        } else
+                            Toast.makeText(getActivity(), "Enter a shorter name", Toast.LENGTH_SHORT).show();
+                    }
+
+                    //gender input
+//                    messageIntent.putExtra("ET_GENDER", mGender);
+                    userBundle.putString("ET_GENDER", mGender);
+
+
+                    //age input check
+                    String age = mEtAge.getText().toString();
+                    if (age.matches("")) {
+                        Toast.makeText(getActivity(), "Enter age", Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            int ageValue = Integer.parseInt(age);
+                            if (0 <= ageValue && ageValue <= 200)
+                                userBundle.putString("ET_AGE", age);
+                            else
+                                Toast.makeText(getActivity(), "Enter a valid age.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), "Enter a valid age.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    //height input check
+                    String height = mEtHeight.getText().toString();
+                    if (height.matches("")) {
+                        Toast.makeText(getActivity(), "Enter height", Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            double heightValue = Double.parseDouble(height);
+                            if (0 <= heightValue && heightValue <= 10)
+                                userBundle.putString("ET_HEIGHT", height);
+                            else
+                                Toast.makeText(getActivity(), "Enter a valid height.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), "Enter a valid height.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    //weight input check
+                    String weight = mEtWeight.getText().toString();
+                    if (weight.matches("")) {
+                        Toast.makeText(getActivity(), "Enter weight", Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            double weightValue = Double.parseDouble(weight);
+                            if (0 <= weightValue && weightValue <= 1800)
+                                userBundle.putString("ET_WEIGHT", weight);
+                            else
+                                Toast.makeText(getActivity(), "Enter a valid weight.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(getActivity(), "Enter a valid weight.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    //country input
+                    String country = mEtCountry.getText().toString();
+                    if (country.matches("")) {
+                        Toast.makeText(getActivity(), "Enter country", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (country.length() > 0 && country.length() < 20) {
+                            userBundle.putString("ET_COUNTRY", country);
+                        } else
+                            Toast.makeText(getActivity(), "Enter a valid country name", Toast.LENGTH_SHORT).show();
+                    }
+
+                    //city input
+                    String city = mEtCity.getText().toString();
+                    if (country.matches("")) {
+                        Toast.makeText(getActivity(), "Enter city", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (country.length() > 0 && country.length() < 20) {
+                            userBundle.putString("ET_CITY", city);
+                        } else
+                            Toast.makeText(getActivity(), "Enter a valid city name", Toast.LENGTH_SHORT).show();
+                    }
+
+                    //image input
+                    userBundle.putString("IMAGE_PATH", imagePath);
 
                     // edit input
-                    messageIntent.putExtra("EDIT", "true");
+                    userBundle.putString("EDIT", "true");
 
                     // back to main activity
                     if (hasName == 1) {
+                        messageIntent.putExtras(userBundle);
                         this.startActivity(messageIntent);
                     }
                 }

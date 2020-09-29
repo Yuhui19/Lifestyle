@@ -2,6 +2,8 @@ package com.example.lifestyle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -19,7 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,99 +41,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mIbBMI;
     private ImageButton mIbGoal;
 
+    Map<String, String> userInfo = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent receivedIntent = getIntent();
+        Bundle userBundle = receivedIntent.getExtras();
+        if (userBundle != null)
+            onSaveUserInfo(userBundle);
         setContentView(R.layout.activity_main);
 
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
         if (isTablet()) {
             fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
             fTrans.commit();
-        }
-
-        //Get the intent that created this activity.
-        Intent receivedIntent = getIntent();
-
-        //Get the string data and change the profile textView if data is not null
-        String mEditReceived = receivedIntent.getStringExtra("EDIT");
-        if (mEditReceived != null && mEditReceived.equals("true")) {
-            String mNameReceived = receivedIntent.getStringExtra("ET_NAME");
-            if (mNameReceived != null && !mNameReceived.matches("")) {
-                mTvName = (TextView) findViewById(R.id.tv_username);
-                mTvName.setText(mNameReceived);
-            }
-
-            String mGenderReceived = receivedIntent.getStringExtra("ET_GENDER");
-            if (mGenderReceived != null && !mGenderReceived.matches("")) {
-                mTvGender = (TextView) findViewById(R.id.tv_gender);
-                mTvGender.setText(mGenderReceived);
-            }
-
-            String mAgeReceived = receivedIntent.getStringExtra("ET_AGE");
-            if (mAgeReceived != null && !mAgeReceived.matches("")) {
-                mTvAge = (TextView) findViewById(R.id.tv_age);
-                mTvAge.setText(mAgeReceived);
-            }
-
-            String mHeightReceived = receivedIntent.getStringExtra("ET_HEIGHT");
-            if (mHeightReceived != null && !mHeightReceived.matches("")) {
-                mTvHeight = (TextView) findViewById(R.id.tv_height);
-                mTvHeight.setText(mHeightReceived);
-            }
-
-            String mWeightReceived = receivedIntent.getStringExtra("ET_WEIGHT");
-            if (mWeightReceived != null && !mWeightReceived.matches("")) {
-                mTvWeight = (TextView) findViewById(R.id.tv_weight);
-                mTvWeight.setText(mWeightReceived);
-            }
-
-            String mCountryReceived = receivedIntent.getStringExtra("ET_COUNTRY");
-            String mCityReceived = receivedIntent.getStringExtra("ET_CITY");
-            if (mCountryReceived != null && !mCountryReceived.matches("")) {
-                mTvCountry = (TextView) findViewById(R.id.tv_country);
-                mTvCountry.setText(mCountryReceived);
-            }
-            if (mCityReceived != null && !mCityReceived.matches("")) {
-                mTvCity = (TextView) findViewById(R.id.tv_city);
-                mTvCity.setText(mCityReceived);
-            }
-
-
-            String mImagePathReceived = receivedIntent.getStringExtra("IMAGE_PATH");
-            if (mImagePathReceived != null && !mImagePathReceived.matches("")) {
-                Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
-                mIvThumbnail = (ImageView) findViewById(R.id.iv_user_profile);
-                if (thumbnailImage != null){
-                    mIvThumbnail.setImageBitmap(thumbnailImage);
-                }
-            }
-        }
-
-
-        if (savedInstanceState != null) {
-            mTvName = (TextView) findViewById(R.id.tv_username);
-            mTvGender = (TextView) findViewById(R.id.tv_gender);
-            mTvAge = (TextView) findViewById(R.id.tv_age);
-            mTvHeight = (TextView) findViewById(R.id.tv_height);
-            mTvWeight = (TextView) findViewById(R.id.tv_weight);
-            mTvCountry = (TextView) findViewById(R.id.tv_country);
-            mTvCity = (TextView) findViewById(R.id.tv_city);
-
-            mTvName.setText(savedInstanceState.getString("TV_NAME"));
-            mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
-            mTvAge.setText(savedInstanceState.getString("TV_AGE"));
-            mTvHeight.setText(savedInstanceState.getString("TV_HEIGHT"));
-            mTvWeight.setText(savedInstanceState.getString("TV_WEIGHT"));
-            mTvCountry.setText(savedInstanceState.getString("TV_COUNTRY"));
-            mTvCity.setText(savedInstanceState.getString("TV_CITY"));
-        }
-
-
-
-        if (!isTablet()) {
-            mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
-            mbuttonEdit.setOnClickListener(this);
         }
 
         mIbMap = (ImageButton) findViewById(R.id.ib_map);
@@ -145,24 +71,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        // Save the user's current state
-        mTvName = (TextView) findViewById(R.id.tv_username);
-        mTvGender = (TextView) findViewById(R.id.tv_gender);
-        mTvAge = (TextView) findViewById(R.id.tv_age);
-        mTvHeight = (TextView) findViewById(R.id.tv_height);
-        mTvWeight = (TextView) findViewById(R.id.tv_weight);
-        mTvCountry = (TextView) findViewById(R.id.tv_country);
-        mTvCity = (TextView) findViewById(R.id.tv_city);
 
-        // savedInstanceState.putInt(KEY, VALUE);
-        if (isTablet()) return;
-        savedInstanceState.putString("TV_NAME", mTvName.getText().toString());
-        savedInstanceState.putString("TV_GENDER", mTvGender.getText().toString());
-        savedInstanceState.putString("TV_AGE", mTvAge.getText().toString());
-        savedInstanceState.putString("TV_HEIGHT", mTvHeight.getText().toString());
-        savedInstanceState.putString("TV_WEIGHT", mTvWeight.getText().toString());
-        savedInstanceState.putString("TV_COUNTRY", mTvCountry.getText().toString());
-        savedInstanceState.putString("TV_CITY", mTvCity.getText().toString());
+        if (userInfo.containsKey("name")) {
+            savedInstanceState.putString("TV_NAME", userInfo.get("name"));
+        }
+        if (userInfo.containsKey("gender")) {
+            savedInstanceState.putString("TV_GENDER", userInfo.get("gender"));
+        }
+        if (userInfo.containsKey("age")) {
+            savedInstanceState.putString("TV_AGE", userInfo.get("age"));
+        }
+        if (userInfo.containsKey("height")) {
+            savedInstanceState.putString("TV_HEIGHT", userInfo.get("height"));
+        }
+        if (userInfo.containsKey("weight")) {
+            savedInstanceState.putString("TV_WEIGHT", userInfo.get("weight"));
+        }
+        if (userInfo.containsKey("country")) {
+            savedInstanceState.putString("TV_COUNTRY", userInfo.get("country"));
+        }
+        if (userInfo.containsKey("city")) {
+            savedInstanceState.putString("TV_CITY", userInfo.get("city"));
+        }
+        if (userInfo.containsKey("imagePath")) {
+            savedInstanceState.putString("IV_IMAGE_PATH", userInfo.get("imagePath"));
+        }
 
         // Always call the superclass so it can save any view hierarchy
         super.onSaveInstanceState(savedInstanceState);
@@ -170,47 +103,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        mTvName = (TextView) findViewById(R.id.tv_username);
-        mTvGender = (TextView) findViewById(R.id.tv_gender);
-        mTvAge = (TextView) findViewById(R.id.tv_age);
-        mTvHeight = (TextView) findViewById(R.id.tv_height);
-        mTvWeight = (TextView) findViewById(R.id.tv_weight);
-        mTvCountry = (TextView) findViewById(R.id.tv_country);
-        mTvCity = (TextView) findViewById(R.id.tv_city);
 
-        mTvName.setText(savedInstanceState.getString("TV_NAME"));
-        mTvGender.setText(savedInstanceState.getString("TV_GENDER"));
-        mTvAge.setText(savedInstanceState.getString("TV_AGE"));
-        mTvHeight.setText(savedInstanceState.getString("TV_HEIGHT"));
-        mTvWeight.setText(savedInstanceState.getString("TV_WEIGHT"));
-        mTvCountry.setText(savedInstanceState.getString("TV_COUNTRY"));
-        mTvCity.setText(savedInstanceState.getString("TV_CITY"));
+        Bundle bundle = new Bundle();
+        bundle.putString("ET_NAME", savedInstanceState.getString("TV_NAME"));
+        bundle.putString("ET_GENDER", savedInstanceState.getString("TV_GENDER"));
+        bundle.putString("ET_AGE", savedInstanceState.getString("TV_AGE"));
+        bundle.putString("ET_HEIGHT", savedInstanceState.getString("TV_HEIGHT"));
+        bundle.putString("ET_WEIGHT", savedInstanceState.getString("TV_WEIGHT"));
+        bundle.putString("ET_COUNTRY", savedInstanceState.getString("TV_COUNTRY"));
+        bundle.putString("ET_CITY", savedInstanceState.getString("TV_CITY"));
+        bundle.putString("IMAGE_PATH", savedInstanceState.getString("IV_IMAGE_PATH"));
+        onSaveUserInfo(bundle);
+
     }
 
 
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-
-            case R.id.button_edit_profile: {
-                System.out.println("the user click the edit button");
-                Intent editIntent = new Intent(this, EditActivity.class);
-                mTvName = (TextView) findViewById(R.id.tv_username);
-                mTvAge = (TextView) findViewById(R.id.tv_age);
-                mTvHeight = (TextView) findViewById(R.id.tv_height);
-                mTvWeight = (TextView) findViewById(R.id.tv_weight);
-                mTvCountry = (TextView) findViewById(R.id.tv_country);
-                mTvCity = (TextView) findViewById(R.id.tv_city);
-                editIntent.putExtra("WEIGHT", mTvWeight.getText().toString());
-                editIntent.putExtra("HEIGHT", mTvHeight.getText().toString());
-//                editIntent.putExtra("GENDER", mTvGender.getText().toString());
-                editIntent.putExtra("AGE", mTvAge.getText().toString());
-                editIntent.putExtra("NAME", mTvName.getText().toString());
-                editIntent.putExtra("COUNTRY", mTvCountry.getText().toString());
-                editIntent.putExtra("CITY",  mTvCity.getText().toString());
-                this.startActivity(editIntent);
-                break;
-            }
             case R.id.ib_map: {
                 location(mIbMap);
                 break;
@@ -218,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ib_weather: {
 //                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
 //                weather();
-
                 if (isTablet()) {
                     FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.module_info_fragment_tablet, new WeatherFragment(),"frag_weather");
@@ -260,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fTrans.commit();
                 }
                 else {
+                    mTvGender = (TextView) findViewById(R.id.tv_gender);
+                    mTvWeight = (TextView) findViewById(R.id.tv_weight);
+                    mTvHeight = (TextView) findViewById(R.id.tv_height);
+                    mTvAge = (TextView) findViewById(R.id.tv_age);
                     Intent intent = new Intent(this, GoalActivity.class);
                     intent.putExtra("GENDER", mTvGender.getText().toString());
                     if (mTvWeight != null)
@@ -275,24 +188,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void onSaveUserInfo(Bundle bundle) {
+        userInfo.clear();
+        if (bundle.getString("ET_NAME") != null) userInfo.put("name", bundle.getString("ET_NAME"));
+        if (bundle.getString("ET_GENDER") != null) userInfo.put("gender", bundle.getString("ET_GENDER"));
+        if (bundle.getString("ET_AGE") != null) userInfo.put("age", bundle.getString("ET_AGE"));
+        if (bundle.getString("ET_HEIGHT") != null) userInfo.put("height", bundle.getString("ET_HEIGHT"));
+        if (bundle.getString("ET_WEIGHT") != null) userInfo.put("weight", bundle.getString("ET_WEIGHT"));
+        if (bundle.getString("ET_COUNTRY") != null) userInfo.put("country", bundle.getString("ET_COUNTRY"));
+        if (bundle.getString("ET_CITY") != null) userInfo.put("city", bundle.getString("ET_CITY"));
+        if (bundle.getString("IMAGE_PATH") != null) userInfo.put("imagePath", bundle.getString("IMAGE_PATH"));
+
+    }
+
+    public Map<String, String> getUserInfo() {
+        return userInfo;
+    }
+
     public void location(View view) {
         Uri uri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("hikes"));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 
-    public void weather() {
-        ComponentName cn = new ComponentName("com.google.android.wearable.app", "com.google.android.clockwork.home.search.apps.weather.WeatherActivity");
-        try {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-            intent.setComponent(cn);
-            startActivity(intent);
-        } catch(ActivityNotFoundException e){
-            Toast.makeText(getApplicationContext(), "activity not found", Toast.LENGTH_LONG).show();
-        }
-    }
 
     public boolean isTablet() {
         return getResources().getBoolean(R.bool.isTablet);
