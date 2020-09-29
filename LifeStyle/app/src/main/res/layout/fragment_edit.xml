@@ -34,9 +34,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/profile"
                     android:visibility="visible" />
-                =======
-                android:src="@drawable/profile" />
-                >>>>>>> 6bd83f1cfa09f69aad11c54f51d798092f0091f2
+
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>

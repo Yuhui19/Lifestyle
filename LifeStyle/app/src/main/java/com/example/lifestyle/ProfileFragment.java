@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener{
 
@@ -33,7 +34,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_edit_profile: {
-                
+                FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
+                fTrans.replace(R.id.module_info_fragment_tablet, new EditFragment(),"frag_edit");
+                fTrans.addToBackStack(null);
+                fTrans.commit();
             }
         }
     }

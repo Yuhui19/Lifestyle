@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvCity = (TextView) findViewById(R.id.tv_city);
 
         // savedInstanceState.putInt(KEY, VALUE);
+        if (isTablet()) return;
         savedInstanceState.putString("TV_NAME", mTvName.getText().toString());
         savedInstanceState.putString("TV_GENDER", mTvGender.getText().toString());
         savedInstanceState.putString("TV_AGE", mTvAge.getText().toString());

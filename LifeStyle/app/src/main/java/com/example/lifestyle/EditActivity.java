@@ -187,13 +187,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     mEtName.setHint("your name is required");
                 }
                 else {
-//                    String[] splitStrings = name.split("\\s+");
-//                    if(splitStrings.length != 2){
-//                        Toast.makeText(this,"Enter valid first and last name",Toast.LENGTH_SHORT).show();
-//                    }
-//                    else{
-//                        messageIntent.putExtra("ET_NAME", name);
-//                    }
                     if (name.length() > 0 && name.length() < 50) {
                         hasName = 1;
                         messageIntent.putExtra("ET_NAME", name);
