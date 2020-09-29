@@ -44,9 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
         if (isTablet()) {
-//            fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
-
-            fTrans.replace(R.id.module_info_fragment_tablet, new WeatherFragment(),"frag_profile");
+            fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
             fTrans.commit();
         }
 
@@ -108,64 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-//        String mNameReceived = receivedIntent.getStringExtra("ET_NAME");
-//        if (mNameReceived != null && !mNameReceived.matches("")) {
-//            mTvName = (TextView) findViewById(R.id.tv_username);
-//            mTvName.setText(mNameReceived);
-//        }
-//
-//        String mGenderReceived = receivedIntent.getStringExtra("ET_GENDER");
-//        if (mGenderReceived != null && !mGenderReceived.matches("")) {
-//            mTvGender = (TextView) findViewById(R.id.tv_gender);
-//            mTvGender.setText(mGenderReceived);
-//        }
-//
-//        String mAgeReceived = receivedIntent.getStringExtra("ET_AGE");
-//        if (mAgeReceived != null && !mAgeReceived.matches("")) {
-//            mTvAge = (TextView) findViewById(R.id.tv_age);
-//            mTvAge.setText(mAgeReceived);
-//        }
-//
-//        String mHeightReceived = receivedIntent.getStringExtra("ET_HEIGHT");
-//        if (mHeightReceived != null && !mHeightReceived.matches("")) {
-//            mTvHeight = (TextView) findViewById(R.id.tv_height);
-//            mTvHeight.setText(mHeightReceived);
-//        }
-//
-//        String mWeightReceived = receivedIntent.getStringExtra("ET_WEIGHT");
-//        if (mWeightReceived != null && !mWeightReceived.matches("")) {
-//            mTvWeight = (TextView) findViewById(R.id.tv_weight);
-//            mTvWeight.setText(mWeightReceived);
-//        }
-//
-//        String mCountryReceived = receivedIntent.getStringExtra("ET_COUNTRY");
-//        String mCityReceived = receivedIntent.getStringExtra("ET_CITY");
-//        if ((mCountryReceived != null && !mCountryReceived.matches("")) ||
-//                (mCityReceived != null && !mCityReceived.matches(""))) {
-//            String location = "";
-//            if (mCountryReceived != null && !mCountryReceived.matches("")) {
-//                location += mCountryReceived;
-//            }
-//            if ((mCountryReceived != null && !mCountryReceived.matches("")) &&
-//                    (mCityReceived != null && !mCityReceived.matches(""))) {
-//                location += ",\n";
-//            }
-//            if (mCityReceived != null && !mCityReceived.matches("")) {
-//                location += mCityReceived;
-//            }
-//            mTvLocation = (TextView) findViewById(R.id.tv_location);
-//            mTvLocation.setText(location);
-//        }
-//
-//
-//        String mImagePathReceived = receivedIntent.getStringExtra("IMAGE_PATH");
-//        if (mImagePathReceived != null && !mImagePathReceived.matches("")) {
-//            Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
-//            mIvThumbnail = (ImageView) findViewById(R.id.iv_user_profile);
-//            if (thumbnailImage != null){
-//                mIvThumbnail.setImageBitmap(thumbnailImage);
-//            }
-//        }
 
         if (savedInstanceState != null) {
             mTvName = (TextView) findViewById(R.id.tv_username);
@@ -185,8 +125,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mTvCity.setText(savedInstanceState.getString("TV_CITY"));
         }
 
-        mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
-        mbuttonEdit.setOnClickListener(this);
+
+
+        if (!isTablet()) {
+            mbuttonEdit = (Button) findViewById(R.id.button_edit_profile);
+            mbuttonEdit.setOnClickListener(this);
+        }
+
         mIbMap = (ImageButton) findViewById(R.id.ib_map);
         mIbMap.setOnClickListener(this);
         mIbWeather = (ImageButton) findViewById(R.id.ib_weather);
@@ -272,39 +217,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ib_weather: {
 //                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
 //                weather();
-                mTvCountry = (TextView) findViewById(R.id.tv_country);
-                mTvCity = (TextView) findViewById(R.id.tv_city);
-                Intent intent = new Intent(this, WeatherActivity.class);
-                intent.putExtra("COUNTRY", mTvCountry.getText());
-                intent.putExtra("CITY", mTvCity.getText());
-                this.startActivity(intent);
+
+                if (isTablet()) {
+                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    fTrans.replace(R.id.module_info_fragment_tablet, new WeatherFragment(),"frag_weather");
+                    fTrans.addToBackStack(null);
+                    fTrans.commit();
+                }
+                else {
+                    mTvCountry = (TextView) findViewById(R.id.tv_country);
+                    mTvCity = (TextView) findViewById(R.id.tv_city);
+                    Intent intent = new Intent(this, WeatherActivity.class);
+                    intent.putExtra("COUNTRY", mTvCountry.getText());
+                    intent.putExtra("CITY", mTvCity.getText());
+                    this.startActivity(intent);
+                }
                 break;
             }
             case R.id.ib_bmi: {
-                mTvHeight = (TextView) findViewById(R.id.tv_height);
-                mTvWeight = (TextView) findViewById(R.id.tv_weight);
-                Intent intent = new Intent(this, BMIActivity.class);
-                intent.putExtra("WEIGHT", mTvWeight.getText().toString());
-                intent.putExtra("HEIGHT", mTvHeight.getText().toString());
-                this.startActivity(intent);
+                if (isTablet()) {
+                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    fTrans.replace(R.id.module_info_fragment_tablet, new BMIFragment(),"frag_bmi");
+                    fTrans.addToBackStack(null);
+                    fTrans.commit();
+                }
+                else {
+                    mTvHeight = (TextView) findViewById(R.id.tv_height);
+                    mTvWeight = (TextView) findViewById(R.id.tv_weight);
+                    Intent intent = new Intent(this, BMIActivity.class);
+                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+                    this.startActivity(intent);
+                }
                 break;
             }
             case R.id.ib_goal: {
-                Intent intent = new Intent(this, GoalActivity.class);
-//                if (mTvWeight != null && mTvHeight!= null && mTvAge != null) {
-//                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
-//                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
-//                    intent.putExtra("GENDER", mTvGender.getText().toString());
-//                    intent.putExtra("AGE", mTvAge.getText().toString());
-//                }
-                intent.putExtra("GENDER", mTvGender.getText().toString());
-                if (mTvWeight != null)
-                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
-                if (mTvHeight != null)
-                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
-                if (mTvAge != null)
-                    intent.putExtra("AGE", mTvAge.getText().toString());
-                this.startActivity(intent);
+                if (isTablet()) {
+                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    fTrans.replace(R.id.module_info_fragment_tablet, new GoalFragment(),"frag_goal");
+                    fTrans.addToBackStack(null);
+                    fTrans.commit();
+                }
+                else {
+                    Intent intent = new Intent(this, GoalActivity.class);
+                    intent.putExtra("GENDER", mTvGender.getText().toString());
+                    if (mTvWeight != null)
+                        intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+                    if (mTvHeight != null)
+                        intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+                    if (mTvAge != null)
+                        intent.putExtra("AGE", mTvAge.getText().toString());
+                    this.startActivity(intent);
+                }
                 break;
             }
         }
