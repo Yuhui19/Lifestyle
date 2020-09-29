@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    tools:context=".BMIActivity">
+    tools:context=".BMIFragment">
 
     <TextView
         android:id="@+id/tv_BMI_value"
@@ -60,7 +60,7 @@
         android:layout_marginBottom="28dp"
         android:text="@string/BMI_ranges"
         android:textColor="@color/primaryText"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/tv_bmi_ranges_label"
         app:layout_constraintStart_toStartOf="@+id/tv_bmi_ranges_label" />
