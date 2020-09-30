@@ -34,16 +34,22 @@ public class BMIFragment extends Fragment {
 
         //Get the string data and change the profile textView if data is not null
         String mHeightReceived = userInfo.get("height");
-        String mWeightReceived = userInfo.get("height");
+        String mWeightReceived = userInfo.get("weight");
 
         // calculate the BMI value
         Double BMI = 0.0;
-        if (!mHeightReceived.equals("-------") && !mWeightReceived.equals("-------")) {
-            double height = Double.parseDouble(mHeightReceived);
-            double weight = Double.parseDouble(mWeightReceived);
-            BMI = 703 * (weight / (144 * height * height));
-        } else {
+        if (mHeightReceived == null || mWeightReceived == null) {
             Toast.makeText(getActivity(), "Need height and weight value", Toast.LENGTH_SHORT).show();
+        } else {
+            if (!mHeightReceived.equals("-------") && !mWeightReceived.equals("-------")) {
+                double height = Double.parseDouble(mHeightReceived);
+                System.out.println(height);
+                double weight = Double.parseDouble(mWeightReceived);
+                System.out.println(weight);
+                BMI = 703 * (weight / (144 * height * height));
+            } else {
+                Toast.makeText(getActivity(), "Need height and weight value", Toast.LENGTH_SHORT).show();
+            }
         }
 
 

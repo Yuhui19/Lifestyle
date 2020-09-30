@@ -121,7 +121,8 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
                         if (0 >= height || height > 10) {
                             valid = false;
                             Toast.makeText(getActivity(), "Enter a valid height.", Toast.LENGTH_SHORT).show();
-                        }
+                        } else
+                            mEtHeight.setBackgroundColor(500000);
                     } catch (Exception e) {
                         valid = false;
                         Toast.makeText(getActivity(), "Enter a valid height.", Toast.LENGTH_SHORT).show();
@@ -141,7 +142,8 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
                         if (0 >= weight || weight > 1800) {
                             valid = false;
                             Toast.makeText(getActivity(), "Enter a valid weight.", Toast.LENGTH_SHORT).show();
-                        }
+                        } else
+                            mEtWeight.setBackgroundColor(500000);
                     } catch (Exception e) {
                         valid = false;
                         Toast.makeText(getActivity(), "Enter a valid weight.", Toast.LENGTH_SHORT).show();
@@ -155,7 +157,7 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
                 //check age
 //                int age = Integer.parseInt(mAgeReceived);
                 int age = 0;
-                if (!mAgeReceived.matches("")) {
+                if (mAgeReceived != null && !mAgeReceived.matches("")) {
                     try {
                         age = Integer.parseInt(mAgeReceived);
                         if (age <= 0 || 200 < age) {

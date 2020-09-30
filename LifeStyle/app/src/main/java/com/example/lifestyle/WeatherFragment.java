@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -151,6 +152,7 @@ public class WeatherFragment extends Fragment {
 
             }
             else {
+                Toast.makeText(getActivity(), "Enter country and city", Toast.LENGTH_SHORT).show();
                 System.out.println("weather data is null!!!");
             }
 

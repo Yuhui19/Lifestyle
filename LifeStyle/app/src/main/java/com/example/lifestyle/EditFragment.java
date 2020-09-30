@@ -199,6 +199,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                 // save the data and send back to MainActivity
                 if (isTablet()) {
                     // pass data from EditFragment to MainActivity
+
                     Bundle result = new Bundle();
 
                     //name input check
@@ -208,6 +209,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         mEtName.setBackgroundColor(getResources().getColor(R.color.colorWarningLight));
                         mEtName.setHint("your name is required");
                     } else {
+                        mEtName.setBackgroundColor(500000);
                         if (name.length() > 0 && name.length() < 50) {
                             hasName = 1;
                             result.putString("ET_NAME", name);
@@ -239,9 +241,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                     String height = mEtHeight.getText().toString();
                     if (height.matches("")) {
                         Toast.makeText(getActivity(), "Enter height", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-
+                    } else {
                         try {
                             double heightValue = Double.parseDouble(height);
                             if (0 <= heightValue && heightValue <= 10)
@@ -295,13 +295,14 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                     result.putString("IMAGE_PATH", imagePath);
 
 
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.onSaveUserInfo(result);
-
-                    // switch fragment
-                    FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
-                    fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(), "frag_profile");
-                    fTrans.commit();
+                    if (hasName == 1) {
+                        // switch fragment
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.onSaveUserInfo(result);
+                        FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
+                        fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(), "frag_profile");
+                        fTrans.commit();
+                    }
 
                 }
                 else {
@@ -315,6 +316,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         mEtName.setBackgroundColor(getResources().getColor(R.color.colorWarningLight));
                         mEtName.setHint("your name is required");
                     } else {
+                        mEtName.setBackgroundColor(500000);
                         if (name.length() > 0 && name.length() < 50) {
                             hasName = 1;
 //                            messageIntent.putExtra("ET_NAME", name);
