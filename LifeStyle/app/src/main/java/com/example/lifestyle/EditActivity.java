@@ -65,7 +65,6 @@ public class EditActivity extends AppCompatActivity {
 
     int hasName = 0;
 
-
     //Define a request code for the camera
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
