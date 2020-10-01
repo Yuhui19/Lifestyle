@@ -1,6 +1,8 @@
 package com.example.lifestyle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -46,17 +48,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            onSaveUserInfo(savedInstanceState);
+        }
+
         Intent receivedIntent = getIntent();
         Bundle userBundle = receivedIntent.getExtras();
         if (userBundle != null)
             onSaveUserInfo(userBundle);
-        setContentView(R.layout.activity_main);
 
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
         if (isTablet()) {
-            fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
+            int fragmentCount = fm.getBackStackEntryCount();
+            System.out.println("Current Fragment Count is " + fragmentCount);
+            Fragment fragment;
+
+            // initialize the fragment tag as "frag_profile"
+            String tag = "frag_profile";
+            if (fragmentCount == 0) {
+                fragment = new ProfileFragment();
+                fTrans.replace(R.id.module_info_fragment_tablet, fragment, tag);
+                fTrans.addToBackStack(tag);
+            }
+            else {
+                tag = fm.getBackStackEntryAt(fragmentCount - 1).getName();
+                System.out.println("Current Fragment name is " + tag);
+                fragment = fm.findFragmentByTag(tag);
+                fTrans.replace(R.id.module_info_fragment_tablet, fragment, tag);
+            }
             fTrans.commit();
         }
+
+        setContentView(R.layout.activity_main);
 
         mIbMap = (ImageButton) findViewById(R.id.ib_map);
         mIbMap.setOnClickListener(this);
@@ -73,28 +98,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onSaveInstanceState(Bundle savedInstanceState) {
 
         if (userInfo.containsKey("name")) {
-            savedInstanceState.putString("TV_NAME", userInfo.get("name"));
+            savedInstanceState.putString("ET_NAME", userInfo.get("name"));
         }
         if (userInfo.containsKey("gender")) {
-            savedInstanceState.putString("TV_GENDER", userInfo.get("gender"));
+            savedInstanceState.putString("ET_GENDER", userInfo.get("gender"));
         }
         if (userInfo.containsKey("age")) {
-            savedInstanceState.putString("TV_AGE", userInfo.get("age"));
+            savedInstanceState.putString("ET_AGE", userInfo.get("age"));
         }
         if (userInfo.containsKey("height")) {
-            savedInstanceState.putString("TV_HEIGHT", userInfo.get("height"));
+            savedInstanceState.putString("ET_HEIGHT", userInfo.get("height"));
         }
         if (userInfo.containsKey("weight")) {
-            savedInstanceState.putString("TV_WEIGHT", userInfo.get("weight"));
+            savedInstanceState.putString("ET_WEIGHT", userInfo.get("weight"));
         }
         if (userInfo.containsKey("country")) {
-            savedInstanceState.putString("TV_COUNTRY", userInfo.get("country"));
+            savedInstanceState.putString("ET_COUNTRY", userInfo.get("country"));
         }
         if (userInfo.containsKey("city")) {
-            savedInstanceState.putString("TV_CITY", userInfo.get("city"));
+            savedInstanceState.putString("ET_CITY", userInfo.get("city"));
         }
         if (userInfo.containsKey("imagePath")) {
-            savedInstanceState.putString("IV_IMAGE_PATH", userInfo.get("imagePath"));
+            savedInstanceState.putString("IMAGE_PATH", userInfo.get("imagePath"));
         }
 
         // Always call the superclass so it can save any view hierarchy
@@ -105,16 +130,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onRestoreInstanceState(Bundle savedInstanceState) {
 
         Bundle bundle = new Bundle();
-        bundle.putString("ET_NAME", savedInstanceState.getString("TV_NAME"));
-        bundle.putString("ET_GENDER", savedInstanceState.getString("TV_GENDER"));
-        bundle.putString("ET_AGE", savedInstanceState.getString("TV_AGE"));
-        bundle.putString("ET_HEIGHT", savedInstanceState.getString("TV_HEIGHT"));
-        bundle.putString("ET_WEIGHT", savedInstanceState.getString("TV_WEIGHT"));
-        bundle.putString("ET_COUNTRY", savedInstanceState.getString("TV_COUNTRY"));
-        bundle.putString("ET_CITY", savedInstanceState.getString("TV_CITY"));
-        bundle.putString("IMAGE_PATH", savedInstanceState.getString("IV_IMAGE_PATH"));
+        bundle.putString("ET_NAME", savedInstanceState.getString("ET_NAME"));
+        bundle.putString("ET_GENDER", savedInstanceState.getString("ET_GENDER"));
+        bundle.putString("ET_AGE", savedInstanceState.getString("ET_AGE"));
+        bundle.putString("ET_HEIGHT", savedInstanceState.getString("ET_HEIGHT"));
+        bundle.putString("ET_WEIGHT", savedInstanceState.getString("ET_WEIGHT"));
+        bundle.putString("ET_COUNTRY", savedInstanceState.getString("ET_COUNTRY"));
+        bundle.putString("ET_CITY", savedInstanceState.getString("ET_CITY"));
+        bundle.putString("IMAGE_PATH", savedInstanceState.getString("ET_IMAGE_PATH"));
         onSaveUserInfo(bundle);
-
     }
 
 
@@ -126,12 +150,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.ib_weather: {
-//                Toast.makeText(this, "test weather", Toast.LENGTH_SHORT).show();
-//                weather();
                 if (isTablet()) {
+
                     FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.module_info_fragment_tablet, new WeatherFragment(),"frag_weather");
-                    fTrans.addToBackStack(null);
+                    fTrans.addToBackStack("frag_weather");
                     fTrans.commit();
                 }
                 else {
@@ -148,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isTablet()) {
                     FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.module_info_fragment_tablet, new BMIFragment(),"frag_bmi");
-                    fTrans.addToBackStack(null);
+                    fTrans.addToBackStack("frag_bmi");
                     fTrans.commit();
                 }
                 else {
@@ -165,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isTablet()) {
                     FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.module_info_fragment_tablet, new GoalFragment(),"frag_goal");
-                    fTrans.addToBackStack(null);
+                    fTrans.addToBackStack("frag_goal");
                     fTrans.commit();
                 }
                 else {

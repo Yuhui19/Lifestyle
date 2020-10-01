@@ -35,6 +35,9 @@ public class WeatherFragment extends Fragment {
     private TextView mTvWindValue;
     private ImageView mIvCurrentWeather;
 
+    // HashMap used to store user's info in memory
+    Map<String, String> userInfo;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,11 +52,16 @@ public class WeatherFragment extends Fragment {
         mIvCurrentWeather = (ImageView) view.findViewById(R.id.iv_current_weather);
 
         String location = null;
-        Map<String, String> userInfo;
 
         if (isTablet()) {
             MainActivity mainActivity = (MainActivity) getActivity();
             userInfo = mainActivity.getUserInfo();
+            if (userInfo.get("city") != null) {
+                System.out.println("We have the city");
+            }
+            else {
+                System.out.println("We do not have the city");
+            }
         }
         else {
             WeatherActivity weatherActivity = (WeatherActivity) getActivity();
@@ -66,21 +74,25 @@ public class WeatherFragment extends Fragment {
             receivedCity.replaceAll(" ", "&");
             location = receivedCity;
             mTvCurrentCity.setText(userInfo.get("city"));
+
+            if (userInfo.get("country") != null) {
+                String receivedCountry = userInfo.get("country");
+                receivedCountry.replaceAll(" ", "&");
+                receivedCountry.toLowerCase();
+                location += "," + receivedCountry;
+                mTvCurrentCountry.setText(userInfo.get("country"));
+            }
         }
 
-        if (userInfo.get("country") != null) {
-            String receivedCountry = userInfo.get("country");
-            receivedCountry.replaceAll(" ", "&");
-            receivedCountry.toLowerCase();
-            location += "," + receivedCountry;
-            mTvCurrentCountry.setText(userInfo.get("country"));
+
+        if (location == null) {
+            location = "salt&lake&city,us";
+            mTvCurrentCity.setText("Salt Lake City");
+            mTvCurrentCountry.setText("US");
         }
 
-        if (location != null) {
-            WeatherFragment.WeatherTask weatherTask = new WeatherFragment.WeatherTask();
-            weatherTask.execute(location);
-        }
-
+        WeatherFragment.WeatherTask weatherTask = new WeatherFragment.WeatherTask();
+        weatherTask.execute(location);
         return view;
     }
 

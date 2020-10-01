@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class EditFragment extends Fragment implements View.OnClickListener{
 
-    private MyViewModel model;
+
 
     private EditText mEtName;
     private EditText mEtAge;
@@ -282,10 +282,10 @@ public class EditFragment extends Fragment implements View.OnClickListener{
 
                     //city input
                     String city = mEtCity.getText().toString();
-                    if (country.matches("")) {
+                    if (city.matches("")) {
                         Toast.makeText(getActivity(), "Enter city", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (country.length() > 0 && country.length() < 20) {
+                        if (city.length() > 0 && city.length() < 20) {
                             result.putString("ET_CITY", city);
                         } else
                             Toast.makeText(getActivity(), "Enter a valid city name", Toast.LENGTH_SHORT).show();
@@ -301,6 +301,7 @@ public class EditFragment extends Fragment implements View.OnClickListener{
                         activity.onSaveUserInfo(result);
                         FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
                         fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(), "frag_profile");
+                        fTrans.addToBackStack("frag_profile");
                         fTrans.commit();
                     }
 

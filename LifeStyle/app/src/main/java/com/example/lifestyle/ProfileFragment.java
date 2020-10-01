@@ -37,6 +37,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
         MainActivity mainActivity = (MainActivity) getActivity();
         Map<String, String> userInfo = mainActivity.getUserInfo();
+
         if (userInfo.containsKey("name") && userInfo.get("name") != null) {
             mTvName = (TextView) view.findViewById(R.id.tv_username);
             mTvName.setText(userInfo.get("name"));
@@ -94,7 +95,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     System.out.println("the user click the edit button 1");
                     FragmentTransaction fTrans = getActivity().getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.module_info_fragment_tablet, new EditFragment(),"frag_edit");
-                    fTrans.addToBackStack(null);
+                    fTrans.addToBackStack("frag_edit");
                     fTrans.commit();
                 }
                 else {

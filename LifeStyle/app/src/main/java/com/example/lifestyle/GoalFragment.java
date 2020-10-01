@@ -102,13 +102,6 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
 
                 mOutputCaloriesBlock.setVisibility(View.VISIBLE);
                 mWarningMessageBlock.setVisibility(View.VISIBLE);
-//
-//                mBMRValue = (TextView) findViewById(R.id.tv_BMR_value);
-//                mSuggestedCalories = (TextView) findViewById(R.id.tv_suggested_calories);
-//                mEtGoalWeight = (EditText) findViewById(R.id.et_input_goal_weight);
-//                mRadioGroupGoal = (RadioGroup) findViewById(R.id.radio_group_goal);
-//                mRadioGroupStatus = (RadioGroup) findViewById(R.id.radio_group_status);
-//                mWarningMessage = (TextView) findViewById(R.id.warning_message);
 
                 boolean valid = true;
 
@@ -197,18 +190,6 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
 
                 // get user's goal - whether to lose, gain or maintain weight
                 // 0 represents maintain weight, 1 represents gain weight, -1 represents lose weight
-//                int selectedGoalId = mRadioGroupGoal.getCheckedRadioButtonId();
-//                mRadioButtonGoal = findViewById(selectedGoalId);
-//                if (mRadioButtonGoal.getText().equals("lose")) {
-//                    loseOrGainWeight = -1;
-//                }
-//                else if (mRadioButtonGoal.getText().equals("gain")) {
-//                    loseOrGainWeight = 1;
-//                }
-//                else {
-//                    loseOrGainWeight = 0;
-//                }
-
                 int selectedGoalId = mRadioGroupGoal.getCheckedRadioButtonId();
                 if (selectedGoalId == R.id.goal_lose_weight) {
                     loseOrGainWeight = -1;
