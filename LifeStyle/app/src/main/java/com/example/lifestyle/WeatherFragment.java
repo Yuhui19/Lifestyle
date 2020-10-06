@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+;
 
 import org.json.JSONException;
 
@@ -34,6 +37,7 @@ public class WeatherFragment extends Fragment {
     private TextView mTvHumidityValue;
     private TextView mTvWindValue;
     private ImageView mIvCurrentWeather;
+    private WeatherViewModel mWeatherViewModel;
 
     // HashMap used to store user's info in memory
     Map<String, String> userInfo;
@@ -50,32 +54,28 @@ public class WeatherFragment extends Fragment {
         mTvHumidityValue = (TextView) view.findViewById(R.id.humidity_value);
         mTvWindValue = (TextView) view.findViewById(R.id.wind_value);
         mIvCurrentWeather = (ImageView) view.findViewById(R.id.iv_current_weather);
+        //Create the view model
+        mWeatherViewModel = new ViewModelProviders().of(getActivity()).get(WeatherViewModel.class);
 
         String location = null;
 
         if (isTablet()) {
             MainActivity mainActivity = (MainActivity) getActivity();
             userInfo = mainActivity.getUserInfo();
-            if (userInfo.get("city") != null) {
-                System.out.println("We have the city");
-            }
-            else {
-                System.out.println("We do not have the city");
-            }
         }
         else {
             WeatherActivity weatherActivity = (WeatherActivity) getActivity();
             userInfo = weatherActivity.getUserInfo();
         }
 
-        if (userInfo.get("city") != null) {
+        if (userInfo.get("city") != null && !userInfo.get("city").matches("-------")) {
             String receivedCity = userInfo.get("city");
             receivedCity.toLowerCase();
             receivedCity.replaceAll(" ", "&");
             location = receivedCity;
             mTvCurrentCity.setText(userInfo.get("city"));
 
-            if (userInfo.get("country") != null) {
+            if (userInfo.get("country") != null && !userInfo.get("country").matches("-------")) {
                 String receivedCountry = userInfo.get("country");
                 receivedCountry.replaceAll(" ", "&");
                 receivedCountry.toLowerCase();
@@ -91,50 +91,24 @@ public class WeatherFragment extends Fragment {
             mTvCurrentCountry.setText("US");
         }
 
-        WeatherFragment.WeatherTask weatherTask = new WeatherFragment.WeatherTask();
-        weatherTask.execute(location);
+
+        // set the location for ViewModel
+        mWeatherViewModel.setLocation(location);
+
+        //Set the observer for ViewModel
+        mWeatherViewModel.getData().observe(getActivity(),nameObserver);
+
+//        WeatherFragment.WeatherTask weatherTask = new WeatherFragment.WeatherTask();
+//        weatherTask.execute(location);
         return view;
     }
 
-    private class WeatherTask extends AsyncTask<String, Integer, WeatherData> {
-
+    //create an observer that watches the LiveData<WeatherData> object
+    final Observer<WeatherData> nameObserver  = new Observer<WeatherData>() {
         @Override
-        protected WeatherData doInBackground(String... locations) {
-            URL weatherDataURL = null;
-            try {
-                weatherDataURL = NetworkUtils.buildURLFromString(locations[0]);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            String jsonWeatherData;
-            WeatherData weatherData;
-
-            try {
-                jsonWeatherData = NetworkUtils.getDataFromURL(weatherDataURL);
-                if (jsonWeatherData == null) {
-                    return new WeatherData();
-                } else {
-                    weatherData = JSONWeatherUtils.getWeatherData(jsonWeatherData);
-                    return weatherData;
-                }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-
-        }
-
-
-        @Override
-        protected void onPostExecute(WeatherData weatherData) {
-
-            // set TextView and ImageView Value
-            if (weatherData != null) {
+        public void onChanged(@Nullable final WeatherData weatherData) {
+            // Update the UI if this data variable changes
+            if(weatherData!=null) {
                 Calendar calendar = Calendar.getInstance();
                 mTvWeekDay.setText(calendar.getTime().toString());
 
@@ -161,15 +135,10 @@ public class WeatherFragment extends Fragment {
                 else {
                     mIvCurrentWeather.setImageResource(R.drawable.windy);
                 }
-
             }
-            else {
-                Toast.makeText(getActivity(), "Enter country and city", Toast.LENGTH_SHORT).show();
-                System.out.println("weather data is null!!!");
-            }
-
         }
-    }
+    };
+
 
     public boolean isTablet() {
         return getResources().getBoolean(R.bool.isTablet);
