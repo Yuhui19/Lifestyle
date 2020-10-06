@@ -49,45 +49,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
 
 
-//        MainActivity mainActivity = (MainActivity) getActivity();
-//        Map<String, String> userInfo = mainActivity.getUserInfo();
-//
-//        if (userInfo.containsKey("name") && userInfo.get("name") != null) {
-//            mTvName = (TextView) view.findViewById(R.id.tv_username);
-//            mTvName.setText(userInfo.get("name"));
-//        }
-//        if (userInfo.containsKey("gender") && userInfo.get("gender") != null) {
-//            mTvGender = (TextView) view.findViewById(R.id.tv_gender);
-//            mTvGender.setText(userInfo.get("gender"));
-//        }
-//        if (userInfo.containsKey("age") && userInfo.get("age") != null) {
-//            mTvAge = (TextView) view.findViewById(R.id.tv_age);
-//            mTvAge.setText(userInfo.get("age"));
-//        }
-//        if (userInfo.containsKey("height") && userInfo.get("height") != null) {
-//            mTvHeight = (TextView) view.findViewById(R.id.tv_height);
-//            mTvHeight.setText(userInfo.get("height"));
-//        }
-//        if (userInfo.containsKey("weight") && userInfo.get("weight") != null) {
-//            mTvWeight = (TextView) view.findViewById(R.id.tv_weight);
-//            mTvWeight.setText(userInfo.get("weight"));
-//        }
-//        if (userInfo.containsKey("country") && userInfo.get("country") != null) {
-//            mTvCountry = (TextView) view.findViewById(R.id.tv_country);
-//            mTvCountry.setText(userInfo.get("country"));
-//        }
-//        if (userInfo.containsKey("city") && userInfo.get("city") != null) {
-//            mTvCity = (TextView) view.findViewById(R.id.tv_city);
-//            mTvCity.setText(userInfo.get("city"));
-//        }
-//        if (userInfo.containsKey("imagePath") && userInfo.get("imagePath") != null) {
-//            String mImagePathReceived = userInfo.get("imagePath");
-//            Bitmap thumbnailImage = BitmapFactory.decodeFile(mImagePathReceived);
-//            mIvThumbnail = (ImageView) view.findViewById(R.id.iv_user_profile);
-//            if (thumbnailImage != null){
-//                mIvThumbnail.setImageBitmap(thumbnailImage);
-//            }
-//        }
 
         System.out.println("We are creating the profile fragment!!!");
         mUserViewModel = new ViewModelProviders().of(this).get(UserViewModel.class);

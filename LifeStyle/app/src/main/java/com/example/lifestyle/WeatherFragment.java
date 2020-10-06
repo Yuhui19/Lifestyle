@@ -63,48 +63,6 @@ public class WeatherFragment extends Fragment {
         //Set the observer for ViewModel
         mUserViewModel.getData().observe(getActivity(), userObserver);
 
-//        String location = null;
-//
-//        if (isTablet()) {
-//            MainActivity mainActivity = (MainActivity) getActivity();
-//            userInfo = mainActivity.getUserInfo();
-//        }
-//        else {
-//            WeatherActivity weatherActivity = (WeatherActivity) getActivity();
-//            userInfo = weatherActivity.getUserInfo();
-//        }
-
-//        if (userInfo.get("city") != null && !userInfo.get("city").matches("-------")) {
-//            String receivedCity = userInfo.get("city");
-//            receivedCity.toLowerCase();
-//            receivedCity.replaceAll(" ", "&");
-//            location = receivedCity;
-//            mTvCurrentCity.setText(userInfo.get("city"));
-//
-//            if (userInfo.get("country") != null && !userInfo.get("country").matches("-------")) {
-//                String receivedCountry = userInfo.get("country");
-//                receivedCountry.replaceAll(" ", "&");
-//                receivedCountry.toLowerCase();
-//                location += "," + receivedCountry;
-//                mTvCurrentCountry.setText(userInfo.get("country"));
-//            }
-//        }
-
-
-//        if (location == null) {
-//            location = "salt&lake&city,us";
-//            mTvCurrentCity.setText("Salt Lake City");
-//            mTvCurrentCountry.setText("US");
-//        }
-
-//        // set the location for ViewModel
-//        mWeatherViewModel.setLocation(location);
-//
-//        //Set the observer for ViewModel
-//        mWeatherViewModel.getData().observe(getActivity(),nameObserver);
-
-//        WeatherFragment.WeatherTask weatherTask = new WeatherFragment.WeatherTask();
-//        weatherTask.execute(location);
         return view;
     }
 

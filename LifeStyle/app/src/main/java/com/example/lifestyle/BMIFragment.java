@@ -27,14 +27,7 @@ public class BMIFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bmi, container, false);
         mTvBMI = (TextView) view.findViewById(R.id.tv_BMI_value);
-//        if (isTablet()) {
-//            MainActivity mainActivity = (MainActivity) getActivity();
-//            userInfo = mainActivity.getUserInfo();
-//        }
-//        else {
-//            BMIActivity bmiActivity = (BMIActivity) getActivity();
-//            userInfo = bmiActivity.getUserInfo();
-//        }
+
 
         System.out.println("We are creating the BMI fragment!!!");
 
@@ -43,29 +36,6 @@ public class BMIFragment extends Fragment {
         //Set the observer for ViewModel
         mUserViewModel.getData().observe(getActivity(), nameObserver);
 
-        //Get the string data and change the profile textView if data is not null
-//        String mHeightReceived = userInfo.get("height");
-//        String mWeightReceived = userInfo.get("weight");
-//
-//        // calculate the BMI value
-//        Double BMI = 0.0;
-//        if (mHeightReceived == null || mWeightReceived == null) {
-//            Toast.makeText(getActivity(), "Need height and weight value", Toast.LENGTH_SHORT).show();
-//        } else {
-//            if (!mHeightReceived.equals("-------") && !mWeightReceived.equals("-------")) {
-//                double height = Double.parseDouble(mHeightReceived);
-//                System.out.println(height);
-//                double weight = Double.parseDouble(mWeightReceived);
-//                System.out.println(weight);
-//                BMI = 703 * (weight / (144 * height * height));
-//            } else {
-//                Toast.makeText(getActivity(), "Need height and weight value", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//
-//        // set the component's text to be the BMI value
-//        String strBMI = String.format("%.2f", BMI);
-//        mTvBMI.setText(strBMI);
 
         return view;
     }

@@ -73,48 +73,7 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Intent receivedIntent = getIntent();
-//
-//        //Get the string data and change the profile textView if data is not null
-//        if (receivedIntent.getStringExtra("HEIGHT") != null) {
-//            mHeightReceived = receivedIntent.getStringExtra("HEIGHT");
-//            if (!mHeightReceived.equals("-------"))
-//                userInfo.put("height", mHeightReceived);
-//        }
-//        if (receivedIntent.getStringExtra("WEIGHT") != null) {
-//            mWeightReceived = receivedIntent.getStringExtra("WEIGHT");
-//            if (!mWeightReceived.equals("-------"))
-//                userInfo.put("weight", mWeightReceived);
-//        }
-//        if (receivedIntent.getStringExtra("NAME") != null) {
-//            mNameReceived = receivedIntent.getStringExtra("NAME");
-//            if (!mNameReceived.equals("-------"))
-//                userInfo.put("name", mNameReceived);
-//        }
-//        if (receivedIntent.getStringExtra("AGE") != null) {
-//            mAgeReceived = receivedIntent.getStringExtra("AGE");
-//            if (!mAgeReceived.equals("-------"))
-//                userInfo.put("age", mAgeReceived);
-//        }
-//        if (receivedIntent.getStringExtra("COUNTRY") != null) {
-//            mCountryReceived = receivedIntent.getStringExtra("COUNTRY");
-//            if (!mCountryReceived.equals("-------")) {
-//                userInfo.put("country", mCountryReceived);
-//            }
-//        }
-//        if (receivedIntent.getStringExtra("CITY") != null) {
-//            mCityReceived = receivedIntent.getStringExtra("CITY");
-//            if (!mCityReceived.equals("-------")) {
-//                userInfo.put("city", mCityReceived);
-//            }
-//        }
-//
-//        if (receivedIntent.getStringExtra("IMAGE_PATH") != null) {
-//            mImagePathReceived = receivedIntent.getStringExtra("IMAGE_PATH");
-//            if (!mImagePathReceived.equals("-------")) {
-//                userInfo.put("imagePath", mImagePathReceived);
-//            }
-//        }
+
 
 
         setContentView(R.layout.activity_edit);

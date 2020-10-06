@@ -60,30 +60,7 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
         //Set the observer for ViewModel
         mUserViewModel.getData().observe(getActivity(), nameObserver);
 
-//        if (isTablet()) {
-//            MainActivity mainActivity = (MainActivity) getActivity();
-//            userInfo = mainActivity.getUserInfo();
-//        }
-//        else {
-//            GoalActivity goalActivity = (GoalActivity) getActivity();
-//            userInfo = goalActivity.getUserInfo();
-//        }
 
-        //Get the string data and change the profile textView if data is not null
-//        if (userInfo.get("height") != null) {
-//            mHeightReceived = userInfo.get("height");
-//        }
-//        if (userInfo.get("weight") != null) {
-//            mWeightReceived = userInfo.get("weight");
-//        }
-//        if (userInfo.get("gender") != null) {
-//            mGenderReceived = userInfo.get("gender");
-//        }
-//        if (userInfo.get("age") != null) {
-//            mAgeReceived = userInfo.get("age");
-//        }
-//        mEtWeight.setText(mWeightReceived);
-//        mEtHeight.setText(mHeightReceived);
 
 
         mButtonSendGoal.setOnClickListener(this);
