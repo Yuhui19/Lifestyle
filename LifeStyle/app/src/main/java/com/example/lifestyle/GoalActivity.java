@@ -38,34 +38,14 @@ public class GoalActivity extends AppCompatActivity{
     private RadioButton mRadioButtonStatus;
     private TextView mWarningMessage;
 
-    private Map<String, String> userInfo = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Get the intent that created this activity.
-        Intent receivedIntent = getIntent();
-
-        //Get the string data and change the profile textView if data is not null
-        if (receivedIntent.getStringExtra("HEIGHT") != null) {
-            userInfo.put("height", receivedIntent.getStringExtra("HEIGHT"));
-        }
-        if (receivedIntent.getStringExtra("WEIGHT") != null) {
-            userInfo.put("weight", receivedIntent.getStringExtra("WEIGHT"));
-        }
-        if (receivedIntent.getStringExtra("GENDER") != null) {
-            userInfo.put("gender", receivedIntent.getStringExtra("GENDER"));
-        }
-        if (receivedIntent.getStringExtra("AGE") != null) {
-            userInfo.put("age", receivedIntent.getStringExtra("AGE"));
-        }
 
         setContentView(R.layout.activity_goal);
         setTitle("My Goal");
     }
 
-    public Map<String, String> getUserInfo() {
-        return userInfo;
-    }
 }

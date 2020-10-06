@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            onSaveUserInfo(savedInstanceState);
-        }
+//        if (savedInstanceState != null) {
+//            onSaveUserInfo(savedInstanceState);
+//        }
 
-        Intent receivedIntent = getIntent();
-        Bundle userBundle = receivedIntent.getExtras();
-        if (userBundle != null)
-            onSaveUserInfo(userBundle);
+//        Intent receivedIntent = getIntent();
+//        Bundle userBundle = receivedIntent.getExtras();
+//        if (userBundle != null)
+//            onSaveUserInfo(userBundle);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
@@ -151,18 +151,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.ib_weather: {
                 if (isTablet()) {
-
                     FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
                     fTrans.replace(R.id.module_info_fragment_tablet, new WeatherFragment(),"frag_weather");
                     fTrans.addToBackStack("frag_weather");
                     fTrans.commit();
                 }
                 else {
-                    mTvCountry = (TextView) findViewById(R.id.tv_country);
-                    mTvCity = (TextView) findViewById(R.id.tv_city);
                     Intent intent = new Intent(this, WeatherActivity.class);
-                    intent.putExtra("COUNTRY", mTvCountry.getText());
-                    intent.putExtra("CITY", mTvCity.getText());
                     this.startActivity(intent);
                 }
                 break;
@@ -175,11 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fTrans.commit();
                 }
                 else {
-                    mTvHeight = (TextView) findViewById(R.id.tv_height);
-                    mTvWeight = (TextView) findViewById(R.id.tv_weight);
                     Intent intent = new Intent(this, BMIActivity.class);
-                    intent.putExtra("WEIGHT", mTvWeight.getText().toString());
-                    intent.putExtra("HEIGHT", mTvHeight.getText().toString());
                     this.startActivity(intent);
                 }
                 break;
@@ -192,18 +183,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fTrans.commit();
                 }
                 else {
-                    mTvGender = (TextView) findViewById(R.id.tv_gender);
-                    mTvWeight = (TextView) findViewById(R.id.tv_weight);
-                    mTvHeight = (TextView) findViewById(R.id.tv_height);
-                    mTvAge = (TextView) findViewById(R.id.tv_age);
                     Intent intent = new Intent(this, GoalActivity.class);
-                    intent.putExtra("GENDER", mTvGender.getText().toString());
-                    if (mTvWeight != null)
-                        intent.putExtra("WEIGHT", mTvWeight.getText().toString());
-                    if (mTvHeight != null)
-                        intent.putExtra("HEIGHT", mTvHeight.getText().toString());
-                    if (mTvAge != null)
-                        intent.putExtra("AGE", mTvAge.getText().toString());
+//                    intent.putExtra("GENDER", mTvGender.getText().toString());
+//                    if (mTvWeight != null &&)
+//                        intent.putExtra("WEIGHT", mTvWeight.getText().toString());
+//                    if (mTvHeight != null)
+//                        intent.putExtra("HEIGHT", mTvHeight.getText().toString());
+//                    if (mTvAge != null)
+//                        intent.putExtra("AGE", mTvAge.getText().toString());
                     this.startActivity(intent);
                 }
                 break;
@@ -224,9 +211,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public Map<String, String> getUserInfo() {
-        return userInfo;
-    }
+//    public Map<String, String> getUserInfo() {
+//        return userInfo;
+//    }
 
     public void location(View view) {
         Uri uri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("hikes"));

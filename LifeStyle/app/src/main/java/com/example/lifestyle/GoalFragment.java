@@ -1,6 +1,8 @@
 package com.example.lifestyle;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -42,47 +46,47 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
     private TextView mWarningMessage;
 
     private Map<String, String> userInfo;
+    private UserViewModel mUserViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goal, container, false);
+        mEtWeight = (EditText) view.findViewById(R.id.et_input_current_weight);
+        mEtHeight = (EditText) view.findViewById(R.id.et_input_current_height);
+        mUserViewModel = new ViewModelProviders().of(this).get(UserViewModel.class);
+        mButtonSendGoal = (Button) view.findViewById(R.id.button_send_goal);
 
+        //Set the observer for ViewModel
+        mUserViewModel.getData().observe(getActivity(), nameObserver);
 
-        if (isTablet()) {
-            MainActivity mainActivity = (MainActivity) getActivity();
-            userInfo = mainActivity.getUserInfo();
-        }
-        else {
-            GoalActivity goalActivity = (GoalActivity) getActivity();
-            userInfo = goalActivity.getUserInfo();
-        }
+//        if (isTablet()) {
+//            MainActivity mainActivity = (MainActivity) getActivity();
+//            userInfo = mainActivity.getUserInfo();
+//        }
+//        else {
+//            GoalActivity goalActivity = (GoalActivity) getActivity();
+//            userInfo = goalActivity.getUserInfo();
+//        }
 
         //Get the string data and change the profile textView if data is not null
-        if (userInfo.get("height") != null) {
-            mHeightReceived = userInfo.get("height");
-        }
-        if (userInfo.get("weight") != null) {
-            mWeightReceived = userInfo.get("weight");
-        }
-        if (userInfo.get("gender") != null) {
-            mGenderReceived = userInfo.get("gender");
-        }
-        if (userInfo.get("age") != null) {
-            mAgeReceived = userInfo.get("age");
-        }
+//        if (userInfo.get("height") != null) {
+//            mHeightReceived = userInfo.get("height");
+//        }
+//        if (userInfo.get("weight") != null) {
+//            mWeightReceived = userInfo.get("weight");
+//        }
+//        if (userInfo.get("gender") != null) {
+//            mGenderReceived = userInfo.get("gender");
+//        }
+//        if (userInfo.get("age") != null) {
+//            mAgeReceived = userInfo.get("age");
+//        }
+//        mEtWeight.setText(mWeightReceived);
+//        mEtHeight.setText(mHeightReceived);
 
 
-
-        mEtWeight = (EditText) view.findViewById(R.id.et_input_current_weight);
-        mEtWeight.setText(mWeightReceived);
-
-        mEtHeight = (EditText) view.findViewById(R.id.et_input_current_height);
-        mEtHeight.setText(mHeightReceived);
-
-        mButtonSendGoal = (Button) view.findViewById(R.id.button_send_goal);
         mButtonSendGoal.setOnClickListener(this);
-
         mOutputCaloriesBlock = (LinearLayout) view.findViewById(R.id.output_calories_block);
         mWarningMessageBlock = (LinearLayout) view.findViewById(R.id.warning_message_block);
         mBMRValue = (TextView) view.findViewById(R.id.tv_BMR_value);
@@ -94,6 +98,35 @@ public class GoalFragment extends Fragment implements View.OnClickListener{
 
         return view;
     }
+
+
+
+    //create an observer that watches the LiveData<UserData> object
+    final Observer<UserData> nameObserver  = new Observer<UserData>() {
+        @Override
+        public void onChanged(@Nullable final UserData userData) {
+            // Update the UI if this data variable changes
+            if(userData!=null) {
+                //Get the string data and change the profile textView if data is not null
+                if (userData.getHeight() != null) {
+                    mHeightReceived = userData.getHeight();
+                }
+                if (userData.getWeight() != null) {
+                    mWeightReceived = userData.getWeight();
+                }
+                if (userData.getGender() != null) {
+                    mGenderReceived = userData.getGender();
+                }
+                if (userData.getAge() != null) {
+                    mAgeReceived = userData.getAge();
+                }
+                mEtWeight.setText(mWeightReceived);
+                mEtHeight.setText(mHeightReceived);
+            }
+        }
+    };
+
+
 
     @Override
     public void onClick(View view) {

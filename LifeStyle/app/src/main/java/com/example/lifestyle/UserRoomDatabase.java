@@ -38,9 +38,9 @@ public abstract class UserRoomDatabase extends RoomDatabase{
         @Override
         protected Void doInBackground(Void... voids) {
             mDao.deleteAll();
-            UserTable weatherTable = new UserTable("123",null, null, null, null,
+            UserTable userTable = new UserTable("123",null, null, null, null,
                     null, null, null, null);
-            mDao.insert(weatherTable);
+            mDao.insertUser(userTable);
             return null;
         }
     }

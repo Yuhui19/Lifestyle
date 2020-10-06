@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-;
 
 import org.json.JSONException;
 
@@ -38,9 +37,10 @@ public class WeatherFragment extends Fragment {
     private TextView mTvWindValue;
     private ImageView mIvCurrentWeather;
     private WeatherViewModel mWeatherViewModel;
+    private UserViewModel mUserViewModel;
 
     // HashMap used to store user's info in memory
-    Map<String, String> userInfo;
+    String location;
 
     @Nullable
     @Override
@@ -56,52 +56,96 @@ public class WeatherFragment extends Fragment {
         mIvCurrentWeather = (ImageView) view.findViewById(R.id.iv_current_weather);
         //Create the view model
         mWeatherViewModel = new ViewModelProviders().of(getActivity()).get(WeatherViewModel.class);
+        mUserViewModel = new ViewModelProviders().of(this).get(UserViewModel.class);
 
-        String location = null;
-
-        if (isTablet()) {
-            MainActivity mainActivity = (MainActivity) getActivity();
-            userInfo = mainActivity.getUserInfo();
-        }
-        else {
-            WeatherActivity weatherActivity = (WeatherActivity) getActivity();
-            userInfo = weatherActivity.getUserInfo();
-        }
-
-        if (userInfo.get("city") != null && !userInfo.get("city").matches("-------")) {
-            String receivedCity = userInfo.get("city");
-            receivedCity.toLowerCase();
-            receivedCity.replaceAll(" ", "&");
-            location = receivedCity;
-            mTvCurrentCity.setText(userInfo.get("city"));
-
-            if (userInfo.get("country") != null && !userInfo.get("country").matches("-------")) {
-                String receivedCountry = userInfo.get("country");
-                receivedCountry.replaceAll(" ", "&");
-                receivedCountry.toLowerCase();
-                location += "," + receivedCountry;
-                mTvCurrentCountry.setText(userInfo.get("country"));
-            }
-        }
-
-
-        if (location == null) {
-            location = "salt&lake&city,us";
-            mTvCurrentCity.setText("Salt Lake City");
-            mTvCurrentCountry.setText("US");
-        }
-
-
-        // set the location for ViewModel
-        mWeatherViewModel.setLocation(location);
+        System.out.println("We are creating the weather fragment!!!");
 
         //Set the observer for ViewModel
-        mWeatherViewModel.getData().observe(getActivity(),nameObserver);
+        mUserViewModel.getData().observe(getActivity(), userObserver);
+
+//        String location = null;
+//
+//        if (isTablet()) {
+//            MainActivity mainActivity = (MainActivity) getActivity();
+//            userInfo = mainActivity.getUserInfo();
+//        }
+//        else {
+//            WeatherActivity weatherActivity = (WeatherActivity) getActivity();
+//            userInfo = weatherActivity.getUserInfo();
+//        }
+
+//        if (userInfo.get("city") != null && !userInfo.get("city").matches("-------")) {
+//            String receivedCity = userInfo.get("city");
+//            receivedCity.toLowerCase();
+//            receivedCity.replaceAll(" ", "&");
+//            location = receivedCity;
+//            mTvCurrentCity.setText(userInfo.get("city"));
+//
+//            if (userInfo.get("country") != null && !userInfo.get("country").matches("-------")) {
+//                String receivedCountry = userInfo.get("country");
+//                receivedCountry.replaceAll(" ", "&");
+//                receivedCountry.toLowerCase();
+//                location += "," + receivedCountry;
+//                mTvCurrentCountry.setText(userInfo.get("country"));
+//            }
+//        }
+
+
+//        if (location == null) {
+//            location = "salt&lake&city,us";
+//            mTvCurrentCity.setText("Salt Lake City");
+//            mTvCurrentCountry.setText("US");
+//        }
+
+//        // set the location for ViewModel
+//        mWeatherViewModel.setLocation(location);
+//
+//        //Set the observer for ViewModel
+//        mWeatherViewModel.getData().observe(getActivity(),nameObserver);
 
 //        WeatherFragment.WeatherTask weatherTask = new WeatherFragment.WeatherTask();
 //        weatherTask.execute(location);
         return view;
     }
+
+    //create an observer that watches the LiveData<WeatherData> object
+    final Observer<UserData> userObserver  = new Observer<UserData>() {
+        @Override
+        public void onChanged(@Nullable final UserData userData) {
+            // Update the UI if this data variable changes
+            if(userData!=null) {
+                if (userData.getCity() != null && !userData.getCity().matches("-------")) {
+                    String receivedCity = userData.getCity();
+                    receivedCity.toLowerCase();
+                    receivedCity.replaceAll(" ", "&");
+                    location = receivedCity;
+                    mTvCurrentCity.setText(userData.getCity());
+
+                    if (userData.getCountry() != null && !userData.getCountry().matches("-------")) {
+                        String receivedCountry = userData.getCountry();
+                        receivedCountry.replaceAll(" ", "&");
+                        receivedCountry.toLowerCase();
+                        location += "," + receivedCountry;
+                        mTvCurrentCountry.setText(userData.getCountry());
+                    }
+
+                    if (location == null) {
+                        location = "salt&lake&city,us";
+                        mTvCurrentCity.setText("Salt Lake City");
+                        mTvCurrentCountry.setText("US");
+                    }
+
+                    // set the location for ViewModel
+                    mWeatherViewModel.setLocation(location);
+
+                    //Set the observer for ViewModel
+                    mWeatherViewModel.getData().observe(getActivity(),nameObserver);
+                }
+            }
+        }
+    };
+
+
 
     //create an observer that watches the LiveData<WeatherData> object
     final Observer<WeatherData> nameObserver  = new Observer<WeatherData>() {
@@ -138,6 +182,7 @@ public class WeatherFragment extends Fragment {
             }
         }
     };
+
 
 
     public boolean isTablet() {
