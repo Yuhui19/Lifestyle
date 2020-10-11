@@ -43,7 +43,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="username"
-            android:textColorHint="@color/icon" />
+            android:textColorHint="@color/icon"
+            android:backgroundTint="@color/icon"/>
 
     </LinearLayout>
 
@@ -70,7 +71,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="password"
-            android:textColorHint="@color/icon"/>
+            android:textColorHint="@color/icon"
+            android:backgroundTint="@color/icon"/>
 
     </LinearLayout>
 

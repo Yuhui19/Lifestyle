@@ -12,22 +12,51 @@
     <ImageButton
         android:id="@+id/ib_map"
         style="@style/main_activity_bottom_buttons"
-        android:src="@drawable/map" />
+        android:src="@drawable/map"
+        android:tooltipText="hikes"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Hikes"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <ImageButton
         android:id="@+id/ib_weather"
         style="@style/main_activity_bottom_buttons"
         android:src="@drawable/weather" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Weather"
+        android:textColor="@color/colorPrimaryDark"/>
+
     <ImageButton
         android:id="@+id/ib_bmi"
         style="@style/main_activity_bottom_buttons"
         android:src="@drawable/bmi" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="BMI"
+        android:textColor="@color/colorPrimaryDark"/>
+
     <ImageButton
         android:id="@+id/ib_goal"
         style="@style/main_activity_bottom_buttons"
         android:src="@drawable/goal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Goal"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <!--        <ImageButton-->
     <!--            android:id="@+id/ib_profile"-->

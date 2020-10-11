@@ -48,11 +48,12 @@
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
         <item name="android:background">#FAFAFA</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:tint">@color/colorPrimary</item>
+        <item name="android:layout_gravity">center</item>
+
     </style>
 
     <style name="edit_activity_labels">
