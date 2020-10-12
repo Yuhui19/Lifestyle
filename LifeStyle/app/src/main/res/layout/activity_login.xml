@@ -99,4 +99,16 @@
         android:layout_marginRight="40dp"
         android:text="sign up"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="16dp"
+        android:text="Username or password is not correct"
+        android:textColor="@color/colorWarningLight"
+        android:textSize="18sp"
+        android:visibility="invisible"
+       />
 </LinearLayout>
