@@ -15,7 +15,8 @@ public class UserRepository {
     UserRepository(Application application){
         UserRoomDatabase db = UserRoomDatabase.getDatabase(application);
         mUserDao = db.userDao();
-        new getUserAsyncTask(this, mUserDao).execute("123");
+//        String userId = UserSession.getInstance().getSessionId();
+//        new getUserAsyncTask(this, mUserDao).execute(userId);
     }
 
 //    private void insert(){
@@ -25,7 +26,9 @@ public class UserRepository {
 //    }
 
     public void setUserData(UserData userData){
-        // todo: update user info in database
+        // update user info in database
+        String id = UserSession.getInstance().getSessionId();
+        String password = userData.getPassword();
         String name = userData.getName();
         String gender = userData.getGender();
         String age = userData.getAge();
@@ -35,7 +38,7 @@ public class UserRepository {
         String city = userData.getCity();
         String imagePath = userData.getImagePath();
 
-        UserTable userTable = new UserTable("123", name, gender, age, weight,
+        UserTable userTable = new UserTable(id, password, name, gender, age, weight,
                 height, country, city, imagePath);
 
         new insertUserAsyncTask(mUserDao).execute(userTable);
@@ -50,6 +53,8 @@ public class UserRepository {
 
 
     public MutableLiveData<UserData> getData() {
+        String userId = UserSession.getInstance().getSessionId();
+        new getUserAsyncTask(this, mUserDao).execute(userId);
         return userData;
     }
 
@@ -103,6 +108,8 @@ public class UserRepository {
         protected void onPostExecute(UserTable userTable) {
             UserRepository ref = mRepoWReference.get();
 
+
+
             if (userTable != null) {
                 UserData userData = new UserData();
                 userData.setName(userTable.getName());
@@ -114,6 +121,10 @@ public class UserRepository {
                 userData.setCity(userTable.getCity());
                 userData.setImagePath(userTable.getImagePath());
                 ref.userData.setValue(userData);
+            }
+            else {
+                ref.userData.setValue(null);
+                System.out.println("Current userdata is null");
             }
         }
     }

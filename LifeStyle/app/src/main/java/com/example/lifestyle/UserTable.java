@@ -13,6 +13,9 @@ public class UserTable {
     @ColumnInfo(name = "id")
     private String id;
 
+    @ColumnInfo(name = "password")
+    private String password;
+
     @ColumnInfo(name = "name")
     private String name;
 
@@ -38,9 +41,10 @@ public class UserTable {
     private String imagePath;
 
 
-    public UserTable(@NonNull String id, String name, String gender, String age, String weight,
+    public UserTable(@NonNull String id, String password, String name, String gender, String age, String weight,
                      String height, String country, String city, String imagePath){
         this.id = id;
+        this.password = password;
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -90,6 +94,7 @@ public class UserTable {
     public String getId(){
         return id;
     }
+    public String getPassword() { return password; }
     public String getName(){
         return name;
     }

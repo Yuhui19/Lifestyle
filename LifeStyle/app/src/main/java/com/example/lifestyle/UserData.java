@@ -1,6 +1,8 @@
 package com.example.lifestyle;
 
 public class UserData {
+    private String id;
+    private String password;
     private String name;
     private String gender;
     private String age;
@@ -9,6 +11,22 @@ public class UserData {
     private String country;
     private String city;
     private String imagePath;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
 
     public void setName(String name) {
         this.name = name;
