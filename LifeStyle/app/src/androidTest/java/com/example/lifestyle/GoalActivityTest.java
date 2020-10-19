@@ -37,7 +37,6 @@ public class GoalActivityTest {
         onView(withId(R.id.et_input_current_height)).perform(typeText("170"), closeSoftKeyboard());
         onView(withId(R.id.et_input_current_weight)).perform(typeText("6"));
         ViewActions.closeSoftKeyboard();
-//        onView(withId(R.id.button_send_goal)).perform(click());
     }
 
     @Test

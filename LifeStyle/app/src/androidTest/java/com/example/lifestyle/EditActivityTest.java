@@ -46,11 +46,9 @@ public class EditActivityTest {
         onView(withId(R.id.et_edit_weight)).perform(typeText("170"));
         onView(withId(R.id.et_edit_country)).perform(typeText("us"));
         onView(withId(R.id.et_edit_city)).perform(typeText("Prove"));
-//        onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.iv_user_profile)).check(matches(isDisplayed()));
         onView(withId(R.id.spin_edit_gender)).perform(click());
         onView(withText(endsWith("Others"))).check(matches(isDisplayed()));
-//        onView(withId(R.id.action_save)).perform(click());
     }
 
     @Test
