@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mIbWeather;
     private ImageButton mIbBMI;
     private ImageButton mIbGoal;
+    private ImageButton mIbProfile;
+    private ImageButton mIbLogout;
 
     Map<String, String> userInfo = new HashMap<>();
 
@@ -91,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIbBMI.setOnClickListener(this);
         mIbGoal = (ImageButton) findViewById(R.id.ib_goal);
         mIbGoal.setOnClickListener(this);
+        mIbProfile = (ImageButton) findViewById(R.id.ib_profile);
+        mIbProfile.setOnClickListener(this);
+        mIbLogout = (ImageButton) findViewById(R.id.ib_logout);
+        mIbLogout.setOnClickListener(this);
 
     }
 
@@ -193,6 +199,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        intent.putExtra("AGE", mTvAge.getText().toString());
                     this.startActivity(intent);
                 }
+                break;
+            }
+            case R.id.ib_profile: {
+                if (isTablet()) {
+                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    fTrans.replace(R.id.module_info_fragment_tablet, new ProfileFragment(),"frag_profile");
+                    fTrans.addToBackStack("frag_profile");
+                    fTrans.commit();
+                }
+//                else {
+//                    Intent intent = new Intent(this, MainActivity.class);
+//                    this.startActivity(intent);
+//                }
+                break;
+            }
+            case R.id.ib_logout: {
+                Intent intent = new Intent(this, LoginActivity.class);
+                this.startActivity(intent);
                 break;
             }
         }

@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button mButtonLogin;
     private Button mButtonSignup;
     private UserViewModel mUserViewModel;
-    private Map<String, String> credentials = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                    Intent mainIntent = new Intent(this, MainActivity.class);
 //                    this.startActivity(mainIntent);
 //                }
-                if (credentials.containsKey(username)) {
+                if (UserCredential.getInstance().hasUser(username)) {
                     Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -74,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     userData.setId(username);
                     userData.setPassword(password);
                     mUserViewModel.setUserData(userData);
-                    credentials.put(username, password);
+                    UserCredential.getInstance().addUser(username, password);
                     Intent mainIntent = new Intent(this, MainActivity.class);
                     this.startActivity(mainIntent);
                 }
@@ -99,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                    Intent mainIntent = new Intent(this, MainActivity.class);
 //                    this.startActivity(mainIntent);
 //                }
-                if (credentials.containsKey(username) && credentials.get(username).equals(password)) {
+                if (UserCredential.getInstance().hasUser(username) && UserCredential.getInstance().getUserPassword(username).equals(password)) {
                     Intent mainIntent = new Intent(this, MainActivity.class);
                     this.startActivity(mainIntent);
                 }
