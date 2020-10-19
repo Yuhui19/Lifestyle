@@ -10,6 +10,18 @@
     android:orientation="vertical">
 
     <ImageButton
+        android:id="@+id/ib_profile"
+        android:src="@drawable/profile"
+        style="@style/main_activity_bottom_buttons"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Profile"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <ImageButton
         android:id="@+id/ib_map"
         style="@style/main_activity_bottom_buttons"
         android:src="@drawable/map"
@@ -58,9 +70,16 @@
         android:text="Goal"
         android:textColor="@color/colorPrimaryDark"/>
 
-    <!--        <ImageButton-->
-    <!--            android:id="@+id/ib_profile"-->
-    <!--            android:src="@drawable/profile"-->
-    <!--            style="@style/main_activity_bottom_buttons"/>-->
+    <ImageButton
+        android:id="@+id/ib_logout"
+        style="@style/main_activity_bottom_buttons"
+        android:src="@drawable/logout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="logout"
+        android:textColor="@color/colorPrimaryDark"/>
 
 </LinearLayout >

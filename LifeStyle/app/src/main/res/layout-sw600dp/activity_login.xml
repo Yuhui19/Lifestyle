@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/vibur"
+        android:text="LifeStyle"
+        android:textColor="@color/icon"
+        android:textSize="56sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="64dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="4dp"
+            android:padding="4dp"
+            android:src="@drawable/username"
+            app:tint="@color/icon"
+            android:layout_gravity="center"/>
+
+        <EditText
+            android:id="@+id/et_login_username"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="username"
+            android:textColorHint="@color/icon"
+            android:backgroundTint="@color/icon"
+            android:textColor="@color/icon"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/password"
+            app:tint="@color/icon"
+            android:layout_gravity="center"/>
+
+        <EditText
+            android:id="@+id/et_login_password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:textColorHint="@color/icon"
+            android:backgroundTint="@color/icon"
+            android:textColor="@color/icon"
+            android:inputType="textPassword"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_login"
+        style="@style/edit_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="log in"
+        android:textSize="24sp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp" />
+
+    <Button
+        android:id="@+id/button_signup"
+        style="@style/edit_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        android:textSize="24sp"
+        android:text="sign up"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginTop="20dp"
+        android:text="Username or password is not correct"
+        android:textColor="@color/colorWarningLight"
+        android:textSize="24sp"
+        android:visibility="invisible"
+       />
+</LinearLayout>
