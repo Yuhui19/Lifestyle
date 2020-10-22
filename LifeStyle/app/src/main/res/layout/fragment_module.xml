@@ -71,6 +71,18 @@
         android:textColor="@color/colorPrimaryDark"/>
 
     <ImageButton
+        android:id="@+id/ib_step_counter"
+        style="@style/main_activity_bottom_buttons"
+        android:src="@drawable/step_counter" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Steps"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <ImageButton
         android:id="@+id/ib_logout"
         style="@style/main_activity_bottom_buttons"
         android:src="@drawable/logout" />
@@ -79,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="logout"
+        android:text="Logout"
         android:textColor="@color/colorPrimaryDark"/>
 
 </LinearLayout >
