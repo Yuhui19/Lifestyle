@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mIbGoal;
     private ImageButton mIbProfile;
     private ImageButton mIbLogout;
+    private ImageButton mIbStepCounter;
 
     Map<String, String> userInfo = new HashMap<>();
 
@@ -97,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIbProfile.setOnClickListener(this);
         mIbLogout = (ImageButton) findViewById(R.id.ib_logout);
         mIbLogout.setOnClickListener(this);
+        mIbStepCounter = (ImageButton) findViewById(R.id.ib_step_counter);
+        mIbStepCounter.setOnClickListener(this);
 
     }
 
@@ -217,6 +220,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ib_logout: {
                 Intent intent = new Intent(this, LoginActivity.class);
                 this.startActivity(intent);
+                break;
+            }
+            case R.id.ib_step_counter: {
+                if (isTablet()) {
+                    FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                    fTrans.replace(R.id.module_info_fragment_tablet, new StepCounterFragment(),"frag_step_counter");
+                    fTrans.addToBackStack("frag_step_counter");
+                    fTrans.commit();
+                }
+                else {
+                    Intent intent = new Intent(this, StepCounterActivity.class);
+                    this.startActivity(intent);
+                }
                 break;
             }
         }
