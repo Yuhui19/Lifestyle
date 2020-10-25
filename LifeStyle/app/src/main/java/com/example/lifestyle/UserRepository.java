@@ -15,8 +15,8 @@ public class UserRepository {
     UserRepository(Application application){
         UserRoomDatabase db = UserRoomDatabase.getDatabase(application);
         mUserDao = db.userDao();
-//        String userId = UserSession.getInstance().getSessionId();
-//        new getUserAsyncTask(this, mUserDao).execute(userId);
+        String userId = UserSession.getInstance().getSessionId();
+        new getUserAsyncTask(this, mUserDao).execute(userId);
     }
 
 //    private void insert(){
@@ -53,8 +53,8 @@ public class UserRepository {
 
 
     public MutableLiveData<UserData> getData() {
-        String userId = UserSession.getInstance().getSessionId();
-        new getUserAsyncTask(this, mUserDao).execute(userId);
+//        String userId = UserSession.getInstance().getSessionId();
+//        new getUserAsyncTask(this, mUserDao).execute(userId);
         return userData;
     }
 
