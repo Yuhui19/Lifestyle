@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,12 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MotionEventCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -46,9 +49,9 @@ public class StepCounterFragment extends Fragment implements View.OnClickListene
 
     private SensorManager mSensorManager;
     private TextView mTvStep;
-    private Sensor mStepCounter;
+    private Sensor mStepDetector;
     private Sensor mLinearAccelerometer;
-    private final double mThreshold = 2.0;
+    private final double mThreshold = 6.0;
 
     //Previous positions
     private double last_x, last_y, last_z;
@@ -64,7 +67,7 @@ public class StepCounterFragment extends Fragment implements View.OnClickListene
     private List<StepRecordData> mInputList = new ArrayList<>();
     private String startTime;
     private String endTime;
-    private String stepCount = "0";
+    private int stepCount = 0;
     private DateTimeFormatter dtf;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -86,8 +89,11 @@ public class StepCounterFragment extends Fragment implements View.OnClickListene
             System.out.println("has step counter");
         }
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        mStepDetector = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
         mLinearAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        if(mLinearAccelerometer!=null) {
+            mSensorManager.registerListener(mShakeSensorListener,mLinearAccelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+        }
 
         //Get the recycler view
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_main);
@@ -117,17 +123,67 @@ public class StepCounterFragment extends Fragment implements View.OnClickListene
         mAdapter = new MyRVAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        mTvStep.setOnClickListener(this);
-
+//        mTvStep.setOnClickListener(this);
+        mRecyclerView.setOnTouchListener(mOnTouchListener);
         return view;
     }
+
+
+    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+            int action = MotionEventCompat.getActionMasked(event);
+
+            switch(action) {
+                case (MotionEvent.ACTION_DOWN) :
+//                    Log.d(DEBUG_TAG,"Action was DOWN");
+                    break;
+                case (MotionEvent.ACTION_MOVE) :
+//                    Log.d(DEBUG_TAG,"Action was MOVE");
+                    break;
+                case (MotionEvent.ACTION_UP) :
+                    // record the endTime
+                    LocalDateTime now = LocalDateTime.now();
+                    endTime = dtf.format(now);
+
+                    // close the step counter sensor
+                    mSensorManager.unregisterListener(mStepSensorListener);
+
+                    // write step record to database
+                    StepRecordData stepRecordData = new StepRecordData();
+                    stepRecordData.setStartTime(startTime);
+                    stepRecordData.setEndTime(endTime);
+                    stepRecordData.setStepCount(stepCount);
+                    stepRecordData.setUsername(UserSession.getInstance().getSessionId());
+                    mStepRecordViewModel.setStepRecordsData(stepRecordData);
+
+                    // set step text view
+                    mTvStep.setText("0");
+                    stepCount = 0;
+                    mStepCounterOpen = false;
+                    Toast.makeText(getActivity(), "Close the step counter", Toast.LENGTH_SHORT).show();
+                    break;
+                case (MotionEvent.ACTION_CANCEL) :
+//                    Log.d(DEBUG_TAG,"Action was CANCEL");
+                    break;
+                case (MotionEvent.ACTION_OUTSIDE) :
+//                    Log.d(DEBUG_TAG,"Movement occurred outside bounds " +
+//                            "of current screen element");
+                    break;
+            }
+            return true;
+        }
+    };
 
     private SensorEventListener mStepSensorListener = new SensorEventListener() {
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            stepCount = String.valueOf(event.values[0]);
-            mTvStep.setText("" + String.valueOf(event.values[0]));
+//            stepCount = "" + String.valueOf((int) event.values[0]);
+            stepCount++;
+            mTvStep.setText(String.valueOf(stepCount));
         }
 
         @Override
@@ -160,36 +216,16 @@ public class StepCounterFragment extends Fragment implements View.OnClickListene
                         (dx > mThreshold && dz > mThreshold)||
                         (dy > mThreshold && dz > mThreshold)){
 
-                    if (mStepCounterOpen) {
-                        // record the endTime
-                        LocalDateTime now = LocalDateTime.now();
-                        endTime = dtf.format(now);
-
-                        // close the step counter sensor
-                        mSensorManager.unregisterListener(mStepSensorListener);
-
-                        // write step record to database
-                        StepRecordData stepRecordData = new StepRecordData();
-                        stepRecordData.setStartTime(startTime);
-                        stepRecordData.setEndTime(endTime);
-                        stepRecordData.setStepCount((int) Float.parseFloat(stepCount));
-                        stepRecordData.setUsername(UserSession.getInstance().getSessionId());
-                        mStepRecordViewModel.setStepRecordsData(stepRecordData);
-
-                        // set step text view
-                        mTvStep.setText("" + String.valueOf(0));
-                        mStepCounterOpen = false;
-
-                    }
-                    else {
+                    if (!mStepCounterOpen) {
                         // record the startTime
                         LocalDateTime now = LocalDateTime.now();
                         startTime = dtf.format(now);
 
                         //open the step counter sensor
-                        mSensorManager.registerListener(mStepSensorListener,mStepCounter,SensorManager.SENSOR_DELAY_NORMAL);
+                        mSensorManager.registerListener(mStepSensorListener,mStepDetector,SensorManager.SENSOR_DELAY_NORMAL);
 
                         mStepCounterOpen = true;
+                        Toast.makeText(getActivity(), "Open the step counter", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -250,17 +286,26 @@ public class StepCounterFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_current_step_count: {
-                //The button press should open a camera
-                LocalDateTime now = LocalDateTime.now();
-                startTime = dtf.format(now);
-                endTime = dtf.format(now);
-                StepRecordData stepRecordData = new StepRecordData();
-                stepRecordData.setStartTime(startTime);
-                stepRecordData.setEndTime(endTime);
-                stepRecordData.setStepCount((int) Float.parseFloat(stepCount));
-                stepRecordData.setUsername(UserSession.getInstance().getSessionId());
-                mStepRecordViewModel.setStepRecordsData(stepRecordData);
-                System.out.println("one click !!!!!!!!!!!!!");
+//                // record the endTime
+//                LocalDateTime now = LocalDateTime.now();
+//                endTime = dtf.format(now);
+//
+//                // close the step counter sensor
+//                mSensorManager.unregisterListener(mStepSensorListener);
+//
+//                // write step record to database
+//                StepRecordData stepRecordData = new StepRecordData();
+//                stepRecordData.setStartTime(startTime);
+//                stepRecordData.setEndTime(endTime);
+//                stepRecordData.setStepCount(stepCount);
+//                stepRecordData.setUsername(UserSession.getInstance().getSessionId());
+//                mStepRecordViewModel.setStepRecordsData(stepRecordData);
+//
+//                // set step text view
+//                mTvStep.setText("0");
+//                stepCount = 0;
+//                mStepCounterOpen = false;
+//                Toast.makeText(getActivity(), "Close the step counter", Toast.LENGTH_SHORT).show();
             }
         }
     }
